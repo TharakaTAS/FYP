@@ -1,0 +1,1909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wrist Exo Control Handbook (Rev E)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#F5F6F7;
+  --surface:#FFFFFF;
+  --surface-2:#EDEFF1;
+  --ink:#15191E;
+  --ink-2:#414B55;
+  --muted:#6B7681;
+  --rule:#D9DEE3;
+  --rule-strong:#B8C1C9;
+  --accent:#A8530C;
+  --accent-soft:#F6E9DC;
+  --teal:#0D6E80;
+  --teal-soft:#DFEFF2;
+  --green:#1D6B36;
+  --green-soft:#DFEEE3;
+  --red:#A62121;
+  --red-soft:#F7E2E2;
+  --shadow:0 1px 2px rgba(20,28,36,.06),0 6px 18px -10px rgba(20,28,36,.18);
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151A;
+    --surface:#191E25;
+    --surface-2:#212832;
+    --ink:#E7EBEF;
+    --ink-2:#BCC5CE;
+    --muted:#8E99A4;
+    --rule:#2B333D;
+    --rule-strong:#3D4752;
+    --accent:#E9A356;
+    --accent-soft:#33261A;
+    --teal:#54BFD2;
+    --teal-soft:#132A30;
+    --green:#66C98A;
+    --green-soft:#132618;
+    --red:#EE8E8E;
+    --red-soft:#2B1717;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151A;
+  --surface:#191E25;
+  --surface-2:#212832;
+  --ink:#E7EBEF;
+  --ink-2:#BCC5CE;
+  --muted:#8E99A4;
+  --rule:#2B333D;
+  --rule-strong:#3D4752;
+  --accent:#E9A356;
+  --accent-soft:#33261A;
+  --teal:#54BFD2;
+  --teal-soft:#132A30;
+  --green:#66C98A;
+  --green-soft:#132618;
+  --red:#EE8E8E;
+  --red-soft:#2B1717;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:16.5px;
+  line-height:1.62;
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:0}
+
+/* ---------- header ---------- */
+.masthead{padding-block:44px 26px;border-bottom:2px solid var(--ink)}
+.kicker{
+  font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 14px
+}
+h1{
+  font-family:var(--sans);font-weight:700;font-size:clamp(30px,6vw,50px);
+  line-height:1.04;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance
+}
+.standfirst{font-size:19px;color:var(--ink-2);max-width:62ch;margin:0 0 22px}
+.meta-row{
+  display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);
+  font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em
+}
+.meta-row b{color:var(--ink-2);font-weight:600}
+
+/* ---------- nav ---------- */
+nav.toc{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);margin-bottom:36px
+}
+.toc-inner{
+  max-width:1080px;margin:0 auto;padding-inline:20px;
+  display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin;padding-block:9px
+}
+.toc a{
+  font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.02em;
+  color:var(--muted);text-decoration:none;white-space:nowrap;
+  padding:6px 11px;border-radius:4px;flex:none
+}
+.toc a:hover{color:var(--ink);background:var(--surface-2)}
+.toc a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* ---------- sections ---------- */
+section{margin-bottom:64px;scroll-margin-top:72px}
+.part-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule-strong);padding-bottom:10px;margin-bottom:26px}
+.part-num{
+  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);
+  letter-spacing:.04em;flex:none
+}
+h2{font-family:var(--sans);font-weight:700;font-size:clamp(22px,3.4vw,29px);letter-spacing:-.015em;margin:0;line-height:1.15}
+h3{
+  font-family:var(--sans);font-weight:600;font-size:18.5px;letter-spacing:-.008em;
+  margin:36px 0 10px;line-height:1.3
+}
+h4{font-family:var(--sans);font-weight:600;font-size:14px;margin:22px 0 6px;color:var(--ink-2)}
+p{margin:0 0 14px;max-width:70ch}
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 14px}
+li{margin-bottom:6px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic}
+code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);padding:1px 5px;border-radius:3px}
+a{color:var(--accent)}
+
+/* ---------- step chain ---------- */
+.chain{display:flex;flex-direction:column;gap:0;margin:24px 0 8px}
+.step{
+  display:grid;grid-template-columns:44px 1fr;gap:18px;
+  padding:20px 0;border-top:1px solid var(--rule)
+}
+.step:last-child{border-bottom:1px solid var(--rule)}
+.step-n{
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);
+  padding-top:4px;letter-spacing:.04em
+}
+.step h3{margin:0 0 8px;font-size:17px}
+.step p{margin-bottom:10px}
+.step p:last-child{margin-bottom:0}
+.verdict{
+  font-family:var(--sans);font-size:14px;font-weight:600;color:var(--accent);
+  border-left:3px solid var(--accent);padding-left:12px;margin-top:12px;max-width:66ch
+}
+
+/* ---------- equations ---------- */
+.eq{
+  font-family:var(--mono);font-size:14.5px;line-height:1.8;
+  background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--teal);
+  border-radius:3px;padding:16px 18px;margin:18px 0;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;
+  overflow-x:auto
+}
+.eq .body{white-space:nowrap}
+.eq .tag{font-size:11px;color:var(--muted);flex:none}
+.eq sub{font-size:.78em}
+.eq sup{font-size:.72em}
+
+.terms{margin:16px 0;border-top:1px solid var(--rule)}
+.term{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:start}
+.term .sym{font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--teal)}
+.term .def{font-size:15px;color:var(--ink-2)}
+
+/* ---------- chips ---------- */
+.chip{
+  display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;
+  white-space:nowrap
+}
+.chip.have{background:var(--green-soft);color:var(--green)}
+.chip.measure{background:var(--accent-soft);color:var(--accent)}
+.chip.choose{background:var(--teal-soft);color:var(--teal)}
+.chip.risk{background:var(--red-soft);color:var(--red)}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:20px 0;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px;min-width:580px}
+th{
+  text-align:left;font-weight:600;font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);padding:11px 14px;border-bottom:1px solid var(--rule-strong);white-space:nowrap
+}
+td{padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td.sym,td.num{font-family:var(--mono);font-size:12.5px;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.sym{font-weight:600;color:var(--teal)}
+.hl td{background:var(--accent-soft)}
+
+/* ---------- test cards ---------- */
+.test{
+  background:var(--surface);border:1px solid var(--rule);border-radius:5px;
+  padding:22px;margin:18px 0;box-shadow:var(--shadow)
+}
+.test.gate{border-left:4px solid var(--accent)}
+.test-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.test-id{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.04em}
+.test-head h3{margin:0;font-size:17.5px}
+.test .yields{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:14px}
+.test .yields b{color:var(--teal);font-weight:600}
+.test h4:first-of-type{margin-top:14px}
+.test ol,.test ul{font-size:15px}
+.pass{
+  font-family:var(--sans);font-size:13.5px;background:var(--surface-2);
+  border-radius:4px;padding:10px 14px;margin-top:14px;color:var(--ink-2)
+}
+.pass b{font-family:var(--sans);color:var(--ink)}
+
+/* ---------- callouts ---------- */
+.note{
+  border:1px solid var(--rule);border-left:3px solid var(--teal);background:var(--surface);
+  border-radius:3px;padding:15px 18px;margin:20px 0
+}
+.note.warn{border-left-color:var(--accent)}
+.note.bad{border-left-color:var(--red)}
+.note .lbl{
+  font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--teal);display:block;margin-bottom:6px
+}
+.note.warn .lbl{color:var(--accent)}
+.note.bad .lbl{color:var(--red)}
+.note p:last-child{margin-bottom:0}
+.note p{font-size:15.5px}
+
+/* ---------- code ---------- */
+pre{
+  font-family:var(--mono);font-size:12.5px;line-height:1.65;background:var(--surface);
+  border:1px solid var(--rule);border-radius:4px;padding:16px;overflow-x:auto;margin:18px 0;
+  color:var(--ink-2)
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--muted);font-style:normal}
+
+/* ---------- diagram ---------- */
+.figure{margin:26px 0}
+.figure .scroller{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:5px;padding:18px}
+.figure svg{display:block;min-width:820px}
+.caption{font-size:13.5px;color:var(--muted);margin-top:10px;max-width:70ch}
+
+/* ---------- verdict grid ---------- */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin:20px 0}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:5px;padding:18px}
+.panel h4{margin:0 0 10px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.panel.good h4{color:var(--green)}
+.panel.weak h4{color:var(--accent)}
+.panel.threat h4{color:var(--red)}
+.panel ul{margin:0;padding-left:18px;font-size:14.5px}
+.panel li{margin-bottom:8px}
+
+.ladder{counter-reset:pl;margin:20px 0}
+.rung{
+  display:grid;grid-template-columns:70px 1fr;gap:16px;padding:16px 0;
+  border-top:1px solid var(--rule)
+}
+.rung:last-child{border-bottom:1px solid var(--rule)}
+.rung .tier{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--accent)}
+.rung h4{margin:0 0 5px;font-size:15.5px;color:var(--ink)}
+.rung p{font-size:14.5px;margin:0}
+
+footer{
+  border-top:2px solid var(--ink);padding-block:26px 50px;margin-top:20px;
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.04em
+}
+
+@media (max-width:620px){
+  body{font-size:16px}
+  .step{grid-template-columns:1fr;gap:6px}
+  .step-n{padding-top:0}
+  .term{grid-template-columns:1fr;gap:2px}
+  .rung{grid-template-columns:1fr;gap:4px}
+  .eq{display:block}
+  .eq .tag{display:block;margin-top:8px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Rev E additions: plain-language layer ---------- */
+.plain{background:var(--green-soft);border:1px solid var(--green);border-left:5px solid var(--green);border-radius:4px;padding:16px 20px;margin:20px 0}
+.plain .lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:6px}
+.plain p{font-size:16.5px;color:var(--ink)}
+.plain p:last-child{margin-bottom:0}
+.plain ul,.plain ol{font-size:16px}
+.tech{border-top:1px dashed var(--rule-strong);margin-top:30px;padding-top:4px}
+.tech-lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);display:block;margin:16px 0 4px}
+.note.good{border-left-color:var(--green)}
+.note.good .lbl{color:var(--green)}
+.ask{border-left:3px solid var(--muted);padding:4px 0 4px 14px;margin:18px 0;color:var(--ink-2);font-style:italic;max-width:68ch}
+.tldr{background:var(--accent-soft);border-radius:4px;padding:14px 18px;margin:0 0 24px;border:1px solid var(--accent)}
+.tldr .lbl{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+.tldr p{margin:0;font-size:16.5px;color:var(--ink)}
+.flow{display:flex;flex-wrap:wrap;gap:8px 6px;align-items:stretch;margin:20px 0;font-family:var(--sans);font-size:13.5px}
+.flow .box{background:var(--surface);border:1px solid var(--rule-strong);border-radius:4px;padding:9px 12px;max-width:210px}
+.flow .box b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
+.flow .box span{color:var(--ink-2);font-size:12.5px;line-height:1.4;display:block}
+.flow .arr{color:var(--muted);align-self:center;font-size:18px}
+.words{margin:16px 0;border-top:1px solid var(--rule)}
+.words .w{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:start}
+.words .t{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--teal)}
+.words .d{font-size:15.5px;color:var(--ink-2)}
+.words .d em{color:var(--ink)}
+.group-h{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:30px 0 0}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:18px 0}
+.legend .l{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;font-size:14.5px;color:var(--ink-2)}
+.legend .l b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:4px}
+.legend .g b{color:var(--green)} .legend .t b{color:var(--teal)} .legend .a b{color:var(--accent)} .legend .r b{color:var(--red)} .legend .m b{color:var(--muted)}
+.changes li{margin-bottom:8px}
+.open{background:var(--red-soft);color:var(--red);font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;white-space:nowrap}
+.step-list{counter-reset:s;list-style:none;padding-left:0;max-width:70ch}
+.step-list li{counter-increment:s;position:relative;padding-left:38px;margin-bottom:12px}
+.step-list li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--teal-soft);color:var(--teal);font-family:var(--mono);font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center}
+@media (max-width:620px){.words .w{grid-template-columns:1fr;gap:2px}.flow .arr{display:none}.flow .box{max-width:none;flex:1 1 100%}}
+@media print{nav.toc{display:none}.test{box-shadow:none;break-inside:avoid}section{break-inside:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="masthead">
+  <p class="kicker">MC 4206 · Team MC 04 · Control &amp; Electronics</p>
+  <h1>Wrist Exo Control Handbook</h1>
+  <p class="standfirst">How the wrist exoskeleton is controlled, explained so that you do not need any other tool to follow it. Every idea comes in the same order: what it is in plain words, why we do it, how we do it, what we expect to see, and what to do if we do not see it. The equations and exact limits are still here, underneath each explanation.</p>
+  <div class="meta-row">
+    <span><b>Author</b> T. A. S. Tharaka</span>
+    <span><b>Rev</b> E · 8 Oct 2026</span>
+    <span><b>Replaces</b> Rev D (20 Sep 2026)</span>
+    <span><b>Due</b> 27 Nov</span>
+  </div>
+</header>
+</div>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#start">0 · Start here</a>
+    <a href="#chain">1 · How we got here</a>
+    <a href="#model">2 · The model</a>
+    <a href="#params">3 · Numbers we need</a>
+    <a href="#tests">4 · The tests</a>
+    <a href="#data">5 · Data handling</a>
+    <a href="#loop">6 · The loop</a>
+    <a href="#strategy">7 · Where we stand</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ PART 0 ============ -->
+<section id="start">
+  <div class="part-head"><span class="part-num">PART 0</span><h2>Start here</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">If you read nothing else</span>
+    <p>The device is a motor that helps a weak wrist move, but only as much as needed. To make it behave safely we must know three things about the wrist (how heavy, how sticky, how springy it is), and we must trust a torque number we get from a twisting spring. Almost all of this document is about how we find those numbers, and how we know we can trust them.</p>
+  </div>
+
+  <h3>0.1 What this device is</h3>
+  <p>It is a wearable robot for the wrist. After a stroke, many people can move their wrist only a little. The device sits on the forearm and hand, and a small motor gives the wrist a helping push.</p>
+  <p>Two ideas shape everything:</p>
+  <ul>
+    <li><strong>Help only as much as needed.</strong> Recovery comes from the patient's own effort. If the robot does all the work, the patient stops trying. The robot must give less help when the patient does more.</li>
+    <li><strong>Be safe.</strong> It is strapped to a person. Nothing it does may be sudden, too strong, or able to go out of control.</li>
+  </ul>
+  <p>The wrist can move in two ways, and the device handles one at a time:</p>
+  <ul>
+    <li><strong>FE (flexion and extension):</strong> bending the hand toward the palm side, then back toward the back of the hand. Like waving "stop" and then "come here".</li>
+    <li><strong>RUD (radial and ulnar deviation):</strong> swinging the hand sideways, toward the thumb and toward the little finger. Like a hand waving side to side in a "hello".</li>
+  </ul>
+  <p>The project also has a second job: <strong>measuring</strong> the wrist. Doctors currently grade how stiff a wrist is with a 0 to 4 scale judged by feel (the Modified Ashworth Scale), and two doctors often disagree. The device can measure stiffness in real numbers. That measuring job turned out to be the more achievable and more defensible one (Part 1, step 7).</p>
+
+  <h3>0.2 What this document is for</h3>
+  <p>It is the single place that answers: <em>why was each design decision made, what do the equations mean, which numbers must we go and measure, exactly how, what should happen, and what if it does not?</em> It is written for four readers: the control engineer, the teammates (the ML developer and the mechanical builder), the supervisor and panel, and whoever continues this work later.</p>
+  <div class="ask">If you finish a section and still feel you need to ask someone or something else to explain it, that is a fault in the section, not in you. Mark it and fix it.</div>
+
+  <h3>0.3 How every topic is explained</h3>
+  <p>Look for these coloured boxes. They always come in this order, so you can find what you need quickly.</p>
+  <div class="legend">
+    <div class="l g"><b>In plain words</b>What the thing is, using everyday pictures. Read this first.</div>
+    <div class="l a"><b>Why we do it</b>The reason. If you cannot say why, you cannot defend it.</div>
+    <div class="l t"><b>How we do it</b>The steps, with any new word explained where it first appears.</div>
+    <div class="l g"><b>What we expect</b>What a good result looks like, with numbers.</div>
+    <div class="l r"><b>If it goes wrong</b>What an unexpected result usually means, and what to do next.</div>
+    <div class="l t"><b>Technical layer</b>The equations and exact limits. Everything the thesis needs.</div>
+  </div>
+
+  <h3>0.4 The whole system as one story</h3>
+  <p>Read this once. Every later part zooms into one step of it.</p>
+  <div class="flow">
+    <div class="box"><b>1. Patient tries</b><span>The brain sends a signal. Muscles make tiny electrical signals (EMG).</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>2. Guess the effort</b><span>Software reads the EMG and guesses how hard the patient is trying (the "intent").</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>3. Feel the push</b><span>A twisting spring between motor and wrist tells us how hard the wrist is being pushed.</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>4. Decide where to go</b><span>A pretend spring-and-weight in software turns that push into a target position.</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>5. Move the motor</b><span>The servo motor goes to the target position.</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>6. Wrist responds</b><span>The twist in the spring helps the wrist move. Angle sensors report the new angle.</span></div>
+    <span class="arr">↺</span>
+  </div>
+  <p>Steps 3 to 6 repeat <strong>500 times every second</strong>. That repeating cycle is called the <strong>control loop</strong>. Steps 1 and 2 (the EMG guess) happen more slowly, 50 times a second, and feed into step 4 as a gentle hint.</p>
+
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>Think of a friend helping you push a heavy door. They feel how hard you are pushing, and push a little with you. If you stop pushing, they stop too. The spring is how they "feel" your push. The software is their decision about how much to help. The motor is their arm.</p>
+  </div>
+
+  <h3>0.5 Words you need</h3>
+  <p>Every technical word used later is explained here, in one place, with a picture from everyday life. Skim it now; come back whenever a word is unfamiliar.</p>
+
+  <p class="group-h">Mechanics: the wrist as a physical object</p>
+  <div class="words">
+    <div class="w"><span class="t">Angle (θ)</span><span class="d">How far the wrist is bent, in degrees or radians. 360° is one full turn, which is about 6.28 radians. We use radians in equations and degrees when talking to people.</span></div>
+    <div class="w"><span class="t">Torque (τ)</span><span class="d">A twisting force. Push 1 newton at the end of a 1 metre stick and you apply 1 newton-metre (N·m) of torque. A 50 g mass (about an egg) hanging on a 100 mm lever gives about 0.049 N·m.</span></div>
+    <div class="w"><span class="t">Inertia (J)</span><span class="d">How hard it is to start or stop something turning. A heavy door is harder to swing than a light one. A hand has inertia too. Bigger J means slower to speed up and slower to stop.</span></div>
+    <div class="w"><span class="t">Damping (B)</span><span class="d">Resistance that grows with <em>speed</em>. Stirring honey with a spoon: slow is easy, fast is hard. Damping is why a released hand does not swing like a pendulum forever. Think of the hydraulic arm at the top of a door that stops it slamming.</span></div>
+    <div class="w"><span class="t">Stiffness (K)</span><span class="d">Resistance that grows with <em>distance</em>. A rubber band or spring: stretch it more and it pulls back harder. It is what pulls a bent wrist back toward its resting position.</span></div>
+    <div class="w"><span class="t">Neutral angle (θ<sub>0</sub>)</span><span class="d">The angle where the springiness pulls neither way. Where the relaxed wrist would naturally rest. Not always zero degrees.</span></div>
+    <div class="w"><span class="t">Spasticity</span><span class="d">After a stroke, muscles can overreact when stretched <em>quickly</em>. Move the limb slowly and little resistance; move it fast and the muscle "catches". It depends on speed, not just distance. This is the defining sign we want to measure.</span></div>
+    <div class="w"><span class="t">Gravity torque</span><span class="d">The hand's own weight pulling it down. It confuses the measurements, so we remove it by testing with the motion sideways (horizontal), where gravity pulls straight down onto the supporting table instead of along the motion.</span></div>
+  </div>
+
+  <div class="note good">
+    <span class="lbl">One picture that covers J, B and K</span>
+    <p>Imagine a door fitted with a spring hinge and a hydraulic closer. Push it open and let go. How heavy the door is is <strong>J</strong>. How strongly the spring pulls it shut is <strong>K</strong>. How much the hydraulic arm slows it down is <strong>B</strong>. A relaxed wrist behaves like exactly this door. The heavy-door, strong-spring, strong-closer combination decides whether it snaps back, swings past and wobbles, or creeps slowly home.</p>
+  </div>
+
+  <p class="group-h">Measurement: how we get numbers from the real world</p>
+  <div class="words">
+    <div class="w"><span class="t">Sensor</span><span class="d">Anything that turns a physical thing (angle, force, temperature, muscle signal) into a number the computer can read.</span></div>
+    <div class="w"><span class="t">Encoder</span><span class="d">An angle sensor. Ours splits one full turn into 4096 steps, so each step is 360 ÷ 4096 = <strong>0.088°</strong>. It cannot report anything finer than that. We have two kinds: the motor's own encoder (θ<sub>m</sub>) and a separate magnetic one on the wrist joint (θ<sub>j</sub>, the AS5600).</span></div>
+    <div class="w"><span class="t">Quantisation</span><span class="d">The "staircase" effect of those steps. Like measuring with a ruler marked only in whole centimetres: you can only say 7 cm or 8 cm, never 7.4. The leftover error is called quantisation noise.</span></div>
+    <div class="w"><span class="t">Noise</span><span class="d">Random jitter in a reading. A perfectly still joint can still show readings that flicker by a step or two, from tiny vibrations or electrical interference.</span></div>
+    <div class="w"><span class="t">Hz and sampling rate</span><span class="d">Hertz means "times per second". Recording at <strong>500 Hz</strong> means the computer reads the sensors 500 times each second, once every 2 milliseconds. A 4 second recording at 500 Hz gives 2,000 readings, each with a time stamp.</span></div>
+    <div class="w"><span class="t">Averaging</span><span class="d">Take many readings of something that is not moving, add them up and divide by how many. Random flicker evens out, so the average is steadier than any one reading. <em>Careful:</em> it only helps if the flicker really moves between steps. A reading stuck on one step stays stuck, however many you average.</span></div>
+    <div class="w"><span class="t">EMG</span><span class="d">Electromyography: electrodes on the skin pick up the tiny electrical signal a muscle makes when it works. Its strength roughly follows how hard the muscle is working.</span></div>
+  </div>
+
+  <p class="group-h">Control: how the machine decides what to do</p>
+  <div class="words">
+    <div class="w"><span class="t">Controller</span><span class="d">The software that decides what the motor should do next, based on what the sensors say.</span></div>
+    <div class="w"><span class="t">Feedback loop</span><span class="d">Measure, decide, act, measure again. A person steering a bicycle is a feedback loop. Ours runs 500 times per second.</span></div>
+    <div class="w"><span class="t">Stable / unstable</span><span class="d">Stable: after a bump, the system settles. Unstable: after a bump, it wobbles and the wobble grows. An unstable exoskeleton on a person is the main danger, so much of the design is about staying stable with room to spare.</span></div>
+    <div class="w"><span class="t">Impedance and admittance</span><span class="d">Two ways to decide how a machine should <em>feel</em> when pushed. <strong>Impedance:</strong> "move me this far and I push back this hard". <strong>Admittance:</strong> "push me this hard and I move this far". Ours is admittance: it feels your push and answers with a movement.</span></div>
+    <div class="w"><span class="t">Virtual model</span><span class="d">A made-up spring, weight and damper that exists only in software. We choose its numbers (M<sub>d</sub>, B<sub>d</sub>, K<sub>d</sub>) to make the device feel the way we want. It is <em>not</em> the real wrist. The real wrist has J<sub>h</sub>, B<sub>h</sub>, K<sub>h</sub>.</span></div>
+    <div class="w"><span class="t">Feedforward</span><span class="d">Acting on a prediction instead of waiting for the result. The EMG guess is feedforward: it says "the patient is about to push" before the push shows up in the sensors.</span></div>
+    <div class="w"><span class="t">Resonance</span><span class="d">Every springy connection between two weights tends to "ring" at one particular speed, like a plucked guitar string. If the control loop pushes at that speed, the ringing grows. We keep the loop well clear of it.</span></div>
+  </div>
+
+  <p class="group-h">Testing: how we find the numbers and trust them</p>
+  <div class="words">
+    <div class="w"><span class="t">Transient and steady state</span><span class="d">The <em>transient</em> is the settling-down period right after a disturbance. <em>Steady state</em> is what remains once everything has settled. Test 1 studies the transient, because that is where J, B and K show themselves.</span></div>
+    <div class="w"><span class="t">Underdamped and overdamped</span><span class="d">Underdamped: it overshoots and wobbles a few times before stopping (a swing door with a weak closer). Overdamped: it creeps back without ever overshooting (a door with a very strong closer). A relaxed human wrist is often close to the line between the two, and may show no visible wobble at all.</span></div>
+    <div class="w"><span class="t">Natural frequency (ω<sub>n</sub>) and damping ratio (ζ)</span><span class="d">Two numbers that describe how a transient looks. ω<sub>n</sub> is how fast it would swing if there were no damping. ζ says how heavily it is damped: below 1 it wobbles, above 1 it creeps. One recording gives us these two numbers, not J, B and K separately (see Test 1).</span></div>
+    <div class="w"><span class="t">Curve fitting</span><span class="d">You have dots (your measurements) and a formula with adjustable numbers. The computer adjusts the numbers, again and again, until the formula's curve passes as close to the dots as it can. The adjusted numbers are the answer.</span></div>
+    <div class="w"><span class="t">R²</span><span class="d">A score from 0 to 1 for how well a curve fits the dots. 1 is perfect. 0.95 means the curve explains 95% of the ups and downs in the data. We use it as a quality gate: below the limit, we do not trust the fit.</span></div>
+    <div class="w"><span class="t">Hysteresis</span><span class="d">The way there is not the way back. Bend a paper clip and release it: it does not return along the same path. In Test 0, loading weights up and then unloading them give slightly different readings. A big gap means something is slipping.</span></div>
+    <div class="w"><span class="t">Repeatability (spread)</span><span class="d">Do the same test five times: do you get five similar answers? The spread is how far apart they are. Large spread means the method, or the way the test is done, is not consistent.</span></div>
+    <div class="w"><span class="t">Surrogate</span><span class="d">A mechanical stand-in for a wrist, built from known parts, so we know its true inertia and stiffness in advance. We run every test on it first. If our method recovers the known answer on the rig, we can believe it on a person. If not, the fault is in our method, not in the person.</span></div>
+    <div class="w"><span class="t">Pass criterion</span><span class="d">The number a result must meet for the test to count as passed. Each test has one, and it is decided before the test, not after.</span></div>
+    <div class="w"><span class="t">Negative control</span><span class="d">A case where the answer should be nothing, run to prove the method does not invent effects. Example: a healthy person should show almost no spasticity.</span></div>
+    <div class="w"><span class="t">Minimum detectable change (MDC)</span><span class="d">The smallest change in a measurement that is bigger than the device's own wobble between sessions. If the MDC is 2° and a patient improves by 1°, we cannot honestly say they improved.</span></div>
+  </div>
+
+  <h3>0.6 Symbols at a glance</h3>
+  <p>These appear in the equations. The full table with units and expected ranges is in Part 3.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Symbol</th><th>Plain name</th><th>Belongs to</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">J<sub>h</sub>, B<sub>h</sub>, K<sub>h</sub></td><td>Weight, stickiness and springiness of the real wrist (plus the hand plate)</td><td>The real wrist</td></tr>
+      <tr><td class="sym">τ<sub>vol</sub></td><td>The patient's own muscle effort</td><td>The real wrist</td></tr>
+      <tr><td class="sym">τ<sub>dev</sub></td><td>The torque the device puts on the wrist</td><td>The real wrist</td></tr>
+      <tr><td class="sym">M<sub>d</sub>, B<sub>d</sub>, K<sub>d</sub></td><td>Weight, stickiness and springiness of the <em>pretend</em> model in software. K<sub>d</sub> is the "how much help" knob</td><td>The software</td></tr>
+      <tr><td class="sym">τ<sub>ext</sub></td><td>The push the controller reacts to: the sensed torque plus the EMG hint</td><td>The software</td></tr>
+      <tr><td class="sym">θ<sub>ref</sub></td><td>The target angle the software gives the motor</td><td>The software</td></tr>
+      <tr><td class="sym">θ<sub>m</sub>, θ<sub>j</sub></td><td>Motor angle, and wrist-joint angle</td><td>Sensors</td></tr>
+      <tr><td class="sym">Δ</td><td>The twist in the spring: how far the motor is ahead of the joint</td><td>Sensors</td></tr>
+      <tr><td class="sym">k<sub>θ</sub></td><td>Stiffness of the twisting spring (cable on RUD, added spring on FE). Turns Δ into torque</td><td>The transmission</td></tr>
+      <tr><td class="sym">T<sub>s</sub></td><td>Time between loop ticks: 0.002 s</td><td>Timing</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note warn">
+    <span class="lbl">What changed in Rev E, and what needs your decision</span>
+    <p>Rev E keeps all of Rev D's content and numbers but rewrites the explanations from the ground up, and adds a few corrections. The corrections change protocol text, so they are listed here for you to accept or reject:</p>
+    <ol class="changes">
+      <li><strong>Test 0:</strong> "both directions" now says what it means (an up sweep and a down sweep, for the hysteresis check). The advice for a kθ above 250 now says to make the FE spring <em>softer</em>, not stiffer. Hysteresis now has a stated formula. A note explains how small the signal is against the encoder step.</li>
+      <li><strong>Test 1:</strong> the "why" now includes the wrist's stiffness (K<sub>h</sub>), which is what pulls the hand back; the old wording only mentioned mass and damping. A new step uncouples the motor from the hand plate so the motor's friction and weight do not leak into the result. A new baseline run measures the plate alone. Posture is stated per axis. The surrogate check now compares against the known value, not just the human range.</li>
+      <li><strong>Test 1 and Test 1b:</strong> now say clearly that one recording gives ω<sub>n</sub> and ζ, and that separating J<sub>h</sub> from K<sub>h</sub> needs Test 2 or Test 1b.</li>
+      <li><strong>Part 6:</strong> a new section 6.4 writes down the contract the ML side must meet (what the controller needs, what <code>conf</code> and <code>valid</code> mean). Two of the five fields are still not defined anywhere. They are marked <span class="open">open</span>.</li>
+      <li>Dates in Part 7 are the Rev D plan. Their status has not been updated.</li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- ============ PART 1 ============ -->
+<section id="chain">
+  <div class="part-head"><span class="part-num">PART 1</span><h2>How we got here</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">The short version</span>
+    <p>Eight questions, each answer forced by the one before it. None of it is taste. If you can say the eight answers in order, you can defend the whole design, because when a reviewer attacks a decision the reply is always "because of the step above it".</p>
+  </div>
+
+  <div class="chain">
+
+    <div class="step">
+      <div class="step-n">01</div>
+      <div>
+        <h3>What does the device actually have to do?</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>Help a wrist that can move a <em>little</em>. Do not do the movement for the patient. Add just enough help that the patient finishes the movement, and no more.</p>
+        </div>
+        <p><strong>Why not just move the wrist along a fixed path?</strong> That is called position control: the robot drags the hand through the planned motion no matter what the patient does. The patient can go completely limp and the motion still looks perfect. This is called <strong>slacking</strong>, and it is the best-known failure of rehabilitation robots. Recovery needs effort; a robot that removes the need for effort removes the recovery.</p>
+        <div class="verdict">→ Plain position control is ruled out. The device must be easy to push around (backdrivable) and must change <em>how hard it helps</em>.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">02</div>
+      <div>
+        <h3>So we control how the device feels, not where it goes</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>Instead of telling the robot a path, we tell it how it should <em>behave when pushed</em>: stiff like a spring, heavy like a flywheel, sticky like honey. Then the patient's own effort decides what happens.</p>
+        </div>
+        <p>There are only two ways to specify that, and they mirror each other:</p>
+        <ul>
+          <li><strong>Impedance control:</strong> measure the motion, command a force. <em>"If you move me this far, I push back this hard."</em></li>
+          <li><strong>Admittance control:</strong> measure the force, command a motion. <em>"If you push me this hard, I move this far."</em></li>
+        </ul>
+        <p>In any contact between two things, one side decides the force and the other decides the movement. Never both. That idea is called <strong>causality</strong>. Impedance is "force goes out". Admittance is "movement goes out". Same behaviour, opposite direction of the arrow.</p>
+        <div class="tech">
+          <span class="tech-lbl">Technical layer</span>
+          <p>Hogan (1985) formalised these as impedance (motion in, force out) and admittance (force in, motion out), the two causalities for physical interaction.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">03</div>
+      <div>
+        <h3>Which of the two can our motor actually do?</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>Impedance control needs us to tell the motor "push with exactly this much force". Our motor does not accept that instruction. It only accepts "go to this position" or "spin at this speed".</p>
+        </div>
+        <p>Our servo (Feetech STS3215) takes commands over a serial bus in position mode or speed mode. It has <strong>no torque register</strong>. You cannot write a torque to it. Not "it is difficult": it is impossible.</p>
+        <div class="verdict">→ Impedance control cannot be built on this motor. Admittance control it is. This comes from the datasheet, not from preference.</div>
+        <p style="margin-top:12px">That one sentence fully answers the review question <em>"why admittance and not impedance?"</em> Remember it.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">04</div>
+      <div>
+        <h3>What does an admittance controller need?</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>Something it can <em>measure</em> (how hard the wrist is being pushed) and something the motor <em>accepts</em> (a target position). We have both. In between sits a pretend spring-and-weight in software. Every 2 milliseconds the software works out how that pretend object would move under the current push, and gives its position to the motor as the target.</p>
+        </div>
+        <p>That is the entire controller. Part 2 is the mathematics of that one paragraph.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">05</div>
+      <div>
+        <h3>Where does "assist as needed" come from?</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>The pretend spring has a stiffness, called K<sub>d</sub>. Stiff pretend spring: it pulls the hand strongly toward the target, so the patient is helped a lot. Soft pretend spring: the hand is barely pulled, so the patient does the work. "Assist-as-needed" is just a rule for turning that one knob up and down.</p>
+        </div>
+        <p>We use five fixed settings, from very soft to quite stiff. It is not a different controller; it is a rule layered on top of the same one.</p>
+        <p><strong>Why not simply fit a real spring?</strong> A real spring has one fixed stiffness and is always on. It cannot tell whether the patient is trying. Help that does not depend on effort is exactly what causes slacking.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">06</div>
+      <div>
+        <h3>Where does the machine-learning part fit?</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>The ML model does not steer the machine. It only offers a hint: "the patient seems to be trying to bend the wrist, with about this much effort". That hint is added to the measured push as a small extra nudge. If the hint is late or wrong, the assistance feels a little sluggish or mistimed. It cannot make the machine unstable.</p>
+        </div>
+        <p>This is the most important structural fact in the project. The ML is <strong>outside the safety loop</strong>. That is why the link between the controller and the ML developer's work is a fixed agreement (a "contract") of five numbers sent 50 times a second. He builds to the contract; the controller never depends on his model's insides. The contract is written out in section 6.4.</p>
+        <div class="verdict">→ Separate two things that were being treated as one. <strong>EMG is essential:</strong> nothing else tells us the patient is trying. <strong>Machine learning is not:</strong> the classical recipe (rectify, smooth, subtract the opposing muscle, threshold, scale) does the job in about forty lines.</div>
+        <p style="margin-top:12px">So the classical method is built first as the <strong>baseline</strong>, and the ML becomes the <strong>challenger</strong>, compared against it. If ML wins, we have a result with a fair comparison. If it does not, we have an honest negative result, consistent with Wang 2026. Either way the assist mode works. (Decision D-21, proposed, pending team agreement.)</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">07</div>
+      <div>
+        <h3>Why the main goal shifted to measurement</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>At the supervisory review, a neurosurgeon said that stroke patients have no usable EMG in the hand. That is true for severe cases and not for the patients we target, but arguing it with no patient access and nine weeks left is a losing fight. So the lead goal became something that does not need patients or ML: <strong>measuring the wrist's mechanics objectively</strong>.</p>
+        </div>
+        <p>The device can measure inertia, damping, stiffness and the speed at which spasticity switches on, in real numbers. Today clinicians use an ordinal scale (Modified Ashworth) that depends on the examiner's feel and has poor agreement between examiners. The assist mode is now the second objective.</p>
+        <div class="verdict">→ That claim needs no patients, does not depend on the ML working, can be proved wrong by data (so it is a real scientific claim), and can be delivered in nine weeks.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">08</div>
+      <div>
+        <h3>What the mechanism turned out to be</h3>
+        <div class="plain">
+          <span class="lbl">In plain words</span>
+          <p>Two directions of motion, one motor each. But the two are built <strong>differently</strong>. RUD (side to side) is pulled by a cable loop, and the cable stretches a little, like a stiff rubber band. FE (up and down) is driven directly, with a rigid link that does not stretch at all. That difference matters because the stretch is what we use to sense torque.</p>
+        </div>
+        <ul>
+          <li>Torque can be applied both ways on both axes. There is no return spring and no direction that is left uncommanded.</li>
+          <li><strong>RUD:</strong> the cable <em>is</em> the springy part. So the torque sensor is free, no load cell needed. <strong>FE:</strong> a rigid link has nothing to measure, so we add a deliberate series spring (section 2.3, D-23) to do the cable's job.</li>
+          <li>RUD has no backlash (no loose play), only slack, which a tensioner removes. FE's backlash is checked once its spring is fitted.</li>
+          <li>The two directions are mechanically coupled, so we use only one at a time. The two-channel EMG limit already forces that. One constraint, adopted for another reason, solves two separate problems.</li>
+        </ul>
+        <div class="note warn">
+          <span class="lbl">History worth keeping</span>
+          <p>Decision D-14 first described both axes as cable loops. That was wrong from the start and D-23 corrects it.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ PART 2 ============ -->
+<section id="model">
+  <div class="part-head"><span class="part-num">PART 2</span><h2>The model: what is happening, in equations</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">The short version</span>
+    <p>There are two different things on the page, and they must not be mixed up. One is the <strong>real wrist</strong> (heavy, sticky, springy; we cannot change it, only measure it). The other is a <strong>pretend model in software</strong> (we choose it freely). Between them sit a motor and a twisting spring. Each section below takes one block and explains it.</p>
+  </div>
+
+  <div class="flow">
+    <div class="box"><b>Push sensed</b><span>τ<sub>ext</sub>: how hard the wrist is pushing, plus the EMG hint</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>Pretend model</b><span>M<sub>d</sub>, B<sub>d</sub>, K<sub>d</sub> (software). Section 2.2</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>Target angle</b><span>θ<sub>ref</sub> goes to the motor</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>Motor</b><span>Moves, with a small lag. Section 2.4</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>Twisting spring</b><span>The twist is a torque, τ<sub>dev</sub>. Section 2.3</span></div>
+    <span class="arr">→</span>
+    <div class="box"><b>Real wrist</b><span>J<sub>h</sub>, B<sub>h</sub>, K<sub>h</sub>. Section 2.1</span></div>
+    <span class="arr">↺</span>
+  </div>
+
+  <!-- ---------------- 2.1 ---------------- -->
+  <h3>2.1 The real wrist (the "plant")</h3>
+
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>A relaxed wrist behaves like a door with a spring hinge and a hydraulic closer. It has weight (<strong>J<sub>h</sub></strong>), a spring that pulls it back to rest (<strong>K<sub>h</sub></strong>), and a "brake" that slows it in proportion to speed (<strong>B<sub>h</sub></strong>). After a stroke, a fourth effect appears: if the wrist is moved <em>fast</em>, the muscles push back hard (spasticity).</p>
+    <p>The equation just says: <em>everything the wrist does by itself</em> (left side) equals <em>everything pushing on it</em> (right side).</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Why we do it</span>
+    <p>If we do not know how heavy, sticky and springy the wrist is, we cannot choose controller settings that stay stable, and we cannot make any claim about measuring it. Every number in this equation is something Part 4 goes and measures.</p>
+  </div>
+
+  <div class="eq"><span class="body">J<sub>h</sub> θ̈ + B<sub>h</sub> θ̇ + K<sub>h</sub>(θ − θ<sub>0</sub>) + τ<sub>spas</sub>(θ̇) = τ<sub>dev</sub> + τ<sub>grav</sub> + τ<sub>vol</sub></span><span class="tag">(2.1)</span></div>
+
+  <p>Read it left to right in words: <em>weight × how fast the speed is changing</em>, plus <em>stickiness × speed</em>, plus <em>springiness × distance from rest</em>, plus <em>the spasticity reflex</em>, equals <em>the device's push</em> plus <em>gravity</em> plus <em>the patient's own muscle effort</em>.</p>
+
+  <div class="terms">
+    <div class="term"><span class="sym">J<sub>h</sub></span><span class="def">Inertia of the hand plus the device's hand plate, about the wrist axis. kg·m². <em>Weight-like.</em></span></div>
+    <div class="term"><span class="sym">B<sub>h</sub></span><span class="def">Damping: soft tissue, joint fluid, tendon friction. Resists speed. N·m·s/rad. <em>Honey-like.</em></span></div>
+    <div class="term"><span class="sym">K<sub>h</sub></span><span class="def">Passive stiffness: the springy pull back toward rest. Resists distance. N·m/rad. <em>Rubber-band-like.</em></span></div>
+    <div class="term"><span class="sym">θ<sub>0</sub></span><span class="def">Neutral angle: where the springy pull is zero. Not necessarily 0°.</span></div>
+    <div class="term"><span class="sym">τ<sub>spas</sub></span><span class="def">The spasticity reflex. Depends on <em>speed</em>. Defines the post-stroke wrist (Lance, 1980).</span></div>
+    <div class="term"><span class="sym">τ<sub>dev</sub></span><span class="def">The torque the exoskeleton applies. This is our output. How it is produced is section 2.3.</span></div>
+    <div class="term"><span class="sym">τ<sub>grav</sub></span><span class="def">Gravity pulling on the hand.</span></div>
+    <div class="term"><span class="sym">τ<sub>vol</sub></span><span class="def">The patient's voluntary muscle effort. Unknown and uncontrolled. The EMG is trying to guess it.</span></div>
+  </div>
+
+  <h4>Spasticity: the speed switch</h4>
+  <p>Below a certain speed, nothing happens. Above it, the reflex resistance grows in proportion to how much faster you are going. Picture a car that has a speed limiter: no effect until the threshold, then it pushes back harder the further over you go.</p>
+  <div class="eq"><span class="body">τ<sub>spas</sub> = b<sub>s</sub> · (|θ̇| − θ̇<sub>th</sub>)<sup>+</sup> · sign(θ̇)</span><span class="tag">(2.2)</span></div>
+  <p>Here <strong>θ̇<sub>th</sub></strong> is the threshold speed, <strong>b<sub>s</sub></strong> is how steeply the resistance climbs, the "+" means "ignore it if the bracket is negative" (that is the switch), and sign(θ̇) makes the reflex always oppose the direction of motion. Test 4 finds both b<sub>s</sub> and θ̇<sub>th</sub>.</p>
+
+  <div class="note warn">
+    <span class="lbl">Design decision that removes a whole unknown: keep gravity out</span>
+    <p>If the forearm is supported and the wrist moves in a <strong>horizontal</strong> plane, gravity pulls straight down onto the support and does not act along the motion. Then τ<sub>grav</sub> ≈ 0 and drops out of (2.1). One less number to identify, one less error source, and it costs only a forearm trough.</p>
+    <p><strong>"Horizontal" depends on the axis.</strong> For <strong>RUD</strong>, rest the forearm palm-down on the table; the hand then swings sideways across the table. For <strong>FE</strong>, rest the forearm on its little-finger edge with the thumb up (a handshake position); the hand then bends sideways across the table. If you test FE with the palm down, the hand moves up and down and gravity is back in the equation. Write the posture into every test sheet.</p>
+  </div>
+
+  <div class="note good">
+    <span class="lbl">What we expect</span>
+    <p>For a healthy relaxed wrist: J<sub>h</sub> about 0.001 to 0.006 kg·m²; B<sub>h</sub> about 0.005 to 0.08 N·m·s/rad; K<sub>h</sub> about 0.43 to 1.89 N·m/rad (live-subject data, Falzarano). Spasticity b<sub>s</sub> close to zero on a healthy subject.</p>
+  </div>
+  <div class="note bad">
+    <span class="lbl">If it goes wrong</span>
+    <p>If you measure K<sub>h</sub> near 8 to 23 N·m/rad, suspect the number, not the wrist. Those values come from cadaver wrists tested at the <em>ends</em> of the range of motion; they were wrongly applied to the near-neutral position once already (F-04). Check you are measuring close to neutral, with a relaxed subject.</p>
+  </div>
+
+  <div class="tech">
+    <span class="tech-lbl">Technical layer: the same wrist as a transfer function</span>
+    <p>Linearise about θ<sub>0</sub> for small motions and take the Laplace transform with zero initial conditions. The result is the <strong>environment impedance</strong>: the torque needed per unit of resulting motion.</p>
+    <div class="eq"><span class="body">Z<sub>env</sub>(s) = J<sub>h</sub>s² + B<sub>h</sub>s + K<sub>h</sub></span><span class="tag">(2.3)</span></div>
+    <p>"Zero initial conditions" only means each test starts from rest at θ<sub>0</sub>. That describes how we run the experiment; it is not a hidden assumption.</p>
+  </div>
+
+  <!-- ---------------- 2.2 ---------------- -->
+  <h3>2.2 The controller: a pretend wrist we design</h3>
+
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>The controller is a small <em>imaginary</em> machine that lives only in software: an imaginary weight on an imaginary spring and damper. We feel the real push on the wrist, ask "how would my imaginary machine move under this push?", and tell the motor to go to wherever the imaginary machine would be.</p>
+    <p>This is the only part of the whole system we choose freely. By picking its numbers we decide how the device <em>feels</em>.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">The most common mix-up</span>
+    <p>The real wrist (2.1) and the imaginary machine (2.4) are <strong>two separate equations</strong>. The imaginary machine is driven by τ<sub>ext</sub> (the push we sense). It does <em>not</em> equal τ<sub>dev</sub>. The device torque τ<sub>dev</sub> is created later, when the motor moves and the spring twists (section 2.3). The chain is:</p>
+    <p><strong>τ<sub>ext</sub> → imaginary machine → θ<sub>ref</sub> → motor → spring twist → τ<sub>dev</sub> → real wrist → new angle → back into τ<sub>ext</sub></strong></p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Why we do it</span>
+    <p>This is how we get "help only as much as needed" using a motor that only accepts positions (Part 1, steps 3 to 5). The patient's push moves the imaginary machine; the machine's position becomes the motor's target.</p>
+  </div>
+
+  <div class="eq"><span class="body">M<sub>d</sub> ẍ + B<sub>d</sub> ẋ + K<sub>d</sub> x = τ<sub>ext</sub> ,&nbsp;&nbsp; x = θ<sub>ref</sub> − θ<sub>0</sub></span><span class="tag">(2.4)</span></div>
+  <p>In words: the imaginary weight times its acceleration, plus its damping times its speed, plus its stiffness times its displacement, equals the push. Every 2 ms we step this forward in time and hand the new position <code>x</code> to the motor.</p>
+
+  <h4>How we picked the numbers</h4>
+  <p>Choose the imaginary weight M<sub>d</sub>, how fast we want it to respond (natural frequency f<sub>n</sub>) and how much we want it to overshoot (damping ratio ζ). The stiffness and damping then follow:</p>
+  <div class="eq"><span class="body">K<sub>d</sub> = M<sub>d</sub>(2πf<sub>n</sub>)² = 0.010 × (2π·2.0)² = <b>1.579 N·m/rad</b></span><span class="tag">(2.6)</span></div>
+  <div class="eq"><span class="body">B<sub>d</sub> = 2ζ√(K<sub>d</sub>M<sub>d</sub>) = 2(0.8)√(1.579 × 0.010) = <b>0.201 N·m·s/rad</b></span><span class="tag">(2.7)</span></div>
+  <ul>
+    <li><strong>f<sub>n</sub> = 2 Hz</strong> because voluntary wrist rehabilitation movements are slower than about 1 Hz. The device should respond across the speeds the patient uses and ignore faster jitter.</li>
+    <li><strong>ζ = 0.8</strong> so it settles quickly without overshooting into the patient.</li>
+    <li><strong>M<sub>d</sub> = 0.010</strong> is picked using the stability rule below.</li>
+  </ul>
+
+  <h4>The stability rules that limit the choice</h4>
+  <div class="eq"><span class="body">M<sub>d</sub> &gt; J<sub>h</sub>  (necessary)&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;M<sub>d</sub> ≥ 3J<sub>h</sub>  (adopted)&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;K<sub>d</sub> ≥ 0.6 K<sub>h</sub></span><span class="tag">(2.8)</span></div>
+  <div class="plain">
+    <span class="lbl">In plain words: why the imaginary weight must be heavier than the real hand</span>
+    <p>If the device is told to feel <em>lighter</em> than the real hand, it has to actively cancel part of the hand's real weight, by pushing harder than the push it feels. That needs high loop gain. High gain plus the small delay in the motor is the recipe for a wobble that grows. Feeling <em>heavier</em> than the hand costs nothing. With J<sub>h</sub> ≈ 0.003 and M<sub>d</sub> = 0.010 the ratio is 3.3, inside the adopted rule.</p>
+  </div>
+
+  <div class="note good">
+    <span class="lbl">What we expect</span>
+    <p>With these numbers the imaginary machine, given a steady push, settles in roughly 0.4 seconds (about 4 ÷ (ζ·2π·f<sub>n</sub>)), with almost no overshoot. The five assist levels are K<sub>d</sub> = 0.4, 0.8, 1.6, 3.2, 6.4 N·m/rad; only K<sub>d</sub> changes between levels.</p>
+  </div>
+  <div class="note bad">
+    <span class="lbl">If it goes wrong</span>
+    <ul>
+      <li><strong>Jerky or buzzing motion:</strong> usually delay or noise in the loop. Check the 8 to 10 Hz low-pass (section 2.6) and the loop timing (Test 7).</li>
+      <li><strong>Device feels dead for a moment after hitting its limit:</strong> the anti-windup line is missing or wrong (section 6.3).</li>
+      <li><strong>It pushes the patient when they are relaxed:</strong> the sensed torque has an offset (bad kθ, a slipped cable, or an unzeroed encoder). Re-run Test 0 and re-zero.</li>
+      <li><strong>Check the softest assist levels against a stiff limb.</strong> The rule K<sub>d</sub> ≥ 0.6 K<sub>h</sub> with the stiffest expected K<sub>h</sub> of 1.89 needs K<sub>d</sub> ≥ 1.13. Levels 1 and 2 (0.4 and 0.8) fail that rule for stiff limbs. Confirm with the stability script before using them on anyone stiff.</li>
+    </ul>
+  </div>
+
+  <div class="tech">
+    <span class="tech-lbl">Technical layer: admittance form</span>
+    <p>The admittance is the inverse of the target impedance:</p>
+    <div class="eq"><span class="body">Y(s) = 1 / Z<sub>d</sub>(s) = 1 / (M<sub>d</sub>s² + B<sub>d</sub>s + K<sub>d</sub>)</span><span class="tag">(2.5)</span></div>
+  </div>
+
+  <!-- ---------------- 2.3 ---------------- -->
+  <h3>2.3 The transmission: a free torque sensor</h3>
+
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>Between the motor and the wrist there is something slightly springy (the cable on RUD, a spring we add on FE). Think of a beam fixed at one end with a weight on the other: it bends, and the amount of bend tells you the weight. Here, the motor end is "fixed" and the wrist end is the free end. If the motor holds one angle and the wrist is pushed to another, the spring is <em>twisted</em> by the difference. <strong>Twist × stiffness = torque.</strong> It is the same idea as a bathroom scale, which measures weight by how much a spring squashes.</p>
+    <p>Both ends already have angle sensors: the motor's own encoder at one end, and the AS5600 at the wrist. So the torque sensor costs nothing extra.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Why we do it</span>
+    <p>A load cell (a dedicated torque sensor) is expensive, bulky and adds delay. The spring gives a torque reading at full loop speed with no new hardware. This is called a <em>series elastic actuator</em> (Pratt and Williamson, 1995). RUD has it by accident (the cable stretches); FE gets it by design (the added spring).</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">How we do it</span>
+    <ol class="step-list">
+      <li>Read the motor angle θ<sub>m</sub> and convert it to what the <em>joint</em> angle would be if the connection were rigid, using the pulley ratio. Call that θ<sub>m,refl</sub>.</li>
+      <li>Read the real joint angle θ<sub>j</sub>.</li>
+      <li>Subtract: Δ = θ<sub>m,refl</sub> − θ<sub>j</sub>. This is how much the spring is twisted.</li>
+      <li>Multiply by the spring stiffness k<sub>θ</sub> to get torque.</li>
+    </ol>
+  </div>
+
+  <div class="eq"><span class="body">θ<sub>m,refl</sub> = θ<sub>m</sub> · (r<sub>m</sub> / r<sub>j</sub>)&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;Δ = θ<sub>m,refl</sub> − θ<sub>j</sub>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;τ̂<sub>j</sub> = k<sub>θ</sub> · Δ</span><span class="tag">(2.9)</span></div>
+  <p>k<sub>θ</sub> is not a number to look up or guess. It is the output of <strong>Test 0</strong>, and everything downstream depends on it. RUD and FE are different parts, so each gets its own k<sub>θ</sub> (<code>k_theta_rud</code> and <code>k_theta_fe</code> in <code>wrist_params.m</code>).</p>
+
+  <h4>The price: the staircase gets multiplied</h4>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>The torque comes from a <em>difference</em> of two angle readings, and each reading is a staircase with 0.088° steps. The steps' error is multiplied by the spring stiffness. A stiffer spring turns the same torque into a smaller twist, so the fixed-size steps look relatively bigger. That is why the spring must not be too stiff. It must also not be too soft, or it rings (section 2.6). There is a "just right" band.</p>
+  </div>
+  <div class="eq"><span class="body">δτ<sub>rms</sub> = k<sub>θ</sub> · √2 · q/√12 ,&nbsp;&nbsp; q = 0.088° = 1.536×10⁻³ rad&nbsp;&nbsp;→&nbsp;&nbsp; δτ<sub>rms</sub> = k<sub>θ</sub> × 6.27×10⁻⁴</span><span class="tag">(2.10)</span></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>k<sub>θ</sub> (N·m/rad)</th><th>Noise in torque (raw)</th><th>As % of rated 0.98 N·m</th><th>After filtering to 50 Hz</th><th>Resonance</th></tr></thead>
+    <tbody>
+      <tr><td class="num">20</td><td class="num">0.013</td><td class="num">1.3 %</td><td class="num">0.4 %</td><td class="num">13.3 Hz</td></tr>
+      <tr class="hl"><td class="num">50</td><td class="num">0.031</td><td class="num">3.2 %</td><td class="num">1.0 %</td><td class="num">20.8 Hz</td></tr>
+      <tr><td class="num">100</td><td class="num">0.063</td><td class="num">6.4 %</td><td class="num">2.0 %</td><td class="num">29.2 Hz</td></tr>
+      <tr><td class="num">200</td><td class="num">0.125</td><td class="num">12.8 %</td><td class="num">4.0 %</td><td class="num">41.2 Hz</td></tr>
+      <tr><td class="num">1000 <em>(rigid link)</em></td><td class="num">0.627</td><td class="num">64 %</td><td class="num">20 %</td><td class="num">92 Hz</td></tr>
+    </tbody>
+  </table></div>
+  <p>The usable band is <strong>30 to 250 N·m/rad</strong>. Below 30 the spring rings too close to the control speed. Above 250 the staircase noise swamps the signal. A small Dyneema cable loop (RUD) usually lands between 50 and 200. FE's spring is sized to land at 40 to 60 before it is built. A bare rigid link (FE before its spring) sits in the "1000" row: 64% noise, unusable, which is exactly why the spring was added. Neither axis's real k<sub>θ</sub> is known until Test 0 runs on it.</p>
+
+  <div class="note good">
+    <span class="lbl">What we expect</span>
+    <p>The twist is tiny. At k<sub>θ</sub> = 80 N·m/rad, a push of 0.5 N·m twists the spring only 0.36°, about four encoder steps. That is workable but not generous, which is why averaging, filtering and a good k<sub>θ</sub> matter.</p>
+  </div>
+  <div class="note bad">
+    <span class="lbl">If it goes wrong</span>
+    <ul>
+      <li><strong>Δ stays near zero even when pushing hard:</strong> the link is effectively rigid (FE before the spring is fitted), or the cable has slipped. Torque estimate unusable.</li>
+      <li><strong>Torque reading drifts across a session:</strong> Dyneema cable creeps (slowly stretches). Re-run Test 0 and record which k<sub>θ</sub> each trial used (Part 5.3).</li>
+      <li><strong>Very noisy torque:</strong> k<sub>θ</sub> may be above 250. Soften the link.</li>
+    </ul>
+  </div>
+  <div class="note">
+    <span class="lbl">A note on the 14-bit encoder upgrade</span>
+    <p>The upgrade does <em>not</em> improve the torque estimate: the motor-side angle comes from the servo's own 12-bit encoder and cannot be improved, so combining 12-bit and 14-bit gives 0.091° against 0.088°, essentially nothing. The upgrade is still worth it for the <strong>identification tests</strong>, where the joint angle is read on its own: 227 steps across a 5° decay instead of 57. Use that reason.</p>
+  </div>
+
+  <!-- ---------------- 2.4 ---------------- -->
+  <h3>2.4 The motor (actuator)</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>When we tell the motor "go to this angle", it does not teleport. It takes a moment to start and then glides in, like a car pulling away. We describe that as a smooth lag, plus a small pure delay (the time for the command to arrive and the motor to react).</p>
+  </div>
+  <div class="eq"><span class="body">G<sub>servo</sub>(s) = ω<sub>s</sub>² / (s² + 2ζ<sub>s</sub>ω<sub>s</sub>s + ω<sub>s</sub>²) · e<sup>−sT<sub>d</sub></sup>&nbsp;&nbsp;&nbsp;f<sub>s</sub> ≈ 8 Hz, ζ<sub>s</sub> ≈ 0.8, T<sub>d</sub> ≈ 5 ms</span><span class="tag">(2.11)</span></div>
+  <div class="note warn">
+    <span class="lbl">Be honest about this</span>
+    <p>Those three numbers (8 Hz, 0.8, 5 ms) are <strong>assumed</strong>. Tests 7 and 8 replace them with measurements. Until then every stability margin quoted is provisional, and should be labelled that way.</p>
+  </div>
+
+  <!-- ---------------- 2.5 ---------------- -->
+  <h3>2.5 What decides whether the loop is stable</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>You have heard the squeal when a microphone gets too close to its own speaker: sound goes round, comes back louder, goes round again. A control loop can do the same. Send a small disturbance once around the loop and see what comes back. If it comes back <em>bigger</em> and arrives at the wrong moment so it adds to the original, the wobble grows. That is instability.</p>
+    <p><strong>Loop gain</strong> is "how big it comes back". <strong>Gain margin</strong> and <strong>phase margin</strong> measure how much room we have before it tips over. More room is safer.</p>
+  </div>
+  <div class="eq"><span class="body">L(s) = [ Z<sub>env</sub>(s) / Z<sub>d</sub>(s) ] · G<sub>servo</sub>(s) · e<sup>−sT<sub>d</sub></sup></span><span class="tag">(2.12)</span></div>
+  <p>Read the first bracket as a ratio: <em>how resistant the real limb is</em> divided by <em>how resistant the pretend machine is</em>. The stiffer the real limb compared with the pretend one, the larger the loop gain, and the nearer we are to the edge. That is why K<sub>d</sub> has a lower bound set by K<sub>h</sub>: you cannot render a soft device against a very stiff arm without the loop fighting itself. L(s) has no units because the units of the ratio cancel.</p>
+
+  <!-- ---------------- 2.6 ---------------- -->
+  <h3>2.6 The ringing of the twisting spring (resonance)</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>A spring with a weight at each end rings at one particular rate when it is plucked, like a tuning fork. Our transmission is exactly that: motor on one side, hand on the other. If the control loop pushes near that rate, the ringing builds up. We keep the loop well below it, and add a small filter as insurance.</p>
+    <p>RUD's cable and FE's spring are different parts with different stiffness, so there are <strong>two</strong> ringing rates, one per axis.</p>
+  </div>
+  <div class="eq"><span class="body">ω<sub>res</sub> = √( (k<sub>θ</sub> + K<sub>h</sub>) / J<sub>h</sub> )&nbsp;&nbsp;&nbsp;(computed per axis)</span><span class="tag">(2.13)</span></div>
+  <p>At k<sub>θ</sub> = 50 and light damping (ζ ≈ 0.05) the ringing peaks about +20 dB near 21 Hz. The loop's own speed is around 2 Hz and its response falls off steeply, leaving roughly 20 dB of margin at the peak. Acceptable, but compute it per axis rather than assume it, because it shrinks fast if k<sub>θ</sub> is lower than you think. The 30 N·m/rad floor in section 2.3 comes from here: require ω<sub>res</sub> to be at least twice the servo's ω<sub>s</sub>, and with J<sub>h</sub> ≈ 0.003 that gives k<sub>θ</sub> of about 29.</p>
+  <div class="note warn">
+    <span class="lbl">Cheap insurance: three lines of code</span>
+    <p>Put a first-order low-pass filter at 8 to 10 Hz on the signal entering the controller. It barely affects the 2 Hz target and buys another 6 to 8 dB at the ringing peak. Also: <code>wrist_stability.m</code> currently assumes a rigid transmission, which is no longer true on either axis. The two-mass model is now the correct model, built once per axis. Do this before quoting any margin in the thesis.</p>
+  </div>
+
+  <!-- ---------------- 2.7 ---------------- -->
+  <h3>2.7 Everything in one picture</h3>
+  <div class="figure">
+    <div class="scroller">
+      <svg viewBox="0 0 880 330" width="880" height="330" role="img" aria-label="Block diagram of the wrist exoskeleton control loop">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g style="color:var(--rule-strong)" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="128" y1="56" x2="168" y2="56" marker-end="url(#ar)"/>
+          <line x1="300" y1="56" x2="392" y2="56" marker-end="url(#ar)"/>
+          <line x1="416" y1="80" x2="416" y2="118" marker-end="url(#ar)"/>
+          <line x1="248" y1="182" x2="392" y2="182" marker-end="url(#ar)"/>
+          <line x1="416" y1="206" x2="416" y2="240" marker-end="url(#ar)"/>
+          <line x1="540" y1="264" x2="612" y2="264" marker-end="url(#ar)"/>
+          <line x1="736" y1="240" x2="736" y2="206" marker-end="url(#ar)"/>
+          <line x1="736" y1="158" x2="736" y2="120"/>
+          <line x1="736" y1="120" x2="200" y2="120"/>
+          <line x1="200" y1="120" x2="200" y2="158" marker-end="url(#ar)"/>
+        </g>
+
+        <!-- ML path -->
+        <g font-family="Archivo, sans-serif">
+          <rect x="16" y="34" width="112" height="44" rx="4" fill="var(--surface-2)" stroke="var(--rule-strong)" stroke-width="1"/>
+          <text x="72" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">sEMG</text>
+          <text x="72" y="68" text-anchor="middle" font-size="10" fill="var(--muted)">2 ch · BIOPAC</text>
+
+          <rect x="168" y="34" width="132" height="44" rx="4" fill="var(--surface-2)" stroke="var(--rule-strong)" stroke-width="1"/>
+          <text x="234" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">ML intent model</text>
+          <text x="234" y="68" text-anchor="middle" font-size="10" fill="var(--muted)">autoencoder + KNN/SVM</text>
+
+          <text x="428" y="102" font-size="10.5" font-family="JetBrains Mono, monospace" fill="var(--accent)">τ̂ intent · 50 Hz · feedforward</text>
+
+          <!-- torque estimate -->
+          <rect x="16" y="158" width="108" height="48" rx="4" fill="var(--surface-2)" stroke="var(--rule-strong)" stroke-width="1"/>
+          <text x="70" y="178" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">encoders</text>
+          <text x="70" y="194" text-anchor="middle" font-size="10" fill="var(--muted)">θ_m · θ_j</text>
+
+          <rect x="136" y="158" width="112" height="48" rx="4" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.2"/>
+          <text x="192" y="178" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--teal)">τ̂ = k·Δ</text>
+          <text x="192" y="194" text-anchor="middle" font-size="10" fill="var(--teal)">transmission as sensor</text>
+
+          <text x="258" y="174" font-size="10.5" font-family="JetBrains Mono, monospace" fill="var(--muted)">measured · 200 Hz</text>
+
+          <!-- summing -->
+          <circle cx="416" cy="182" r="14" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="1.5"/>
+          <text x="416" y="187" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">+</text>
+
+          <!-- controller -->
+          <rect x="300" y="240" width="240" height="48" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+          <text x="420" y="260" text-anchor="middle" font-size="12" font-weight="600" fill="var(--accent)">Admittance  Y(s) = 1/(M s²+B s+K)</text>
+          <text x="420" y="277" text-anchor="middle" font-size="10" fill="var(--accent)">+ rate limit · clamp · anti-windup · 500 Hz</text>
+
+          <text x="552" y="258" font-size="10.5" font-family="JetBrains Mono, monospace" fill="var(--muted)">θ_ref</text>
+
+          <!-- plant -->
+          <rect x="612" y="240" width="124" height="48" rx="4" fill="var(--surface-2)" stroke="var(--rule-strong)" stroke-width="1"/>
+          <text x="674" y="260" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">STS3215</text>
+          <text x="674" y="276" text-anchor="middle" font-size="10" fill="var(--muted)">position register</text>
+
+          <rect x="666" y="158" width="140" height="48" rx="4" fill="var(--surface-2)" stroke="var(--rule-strong)" stroke-width="1"/>
+          <text x="736" y="178" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">transmission → wrist</text>
+          <text x="736" y="194" text-anchor="middle" font-size="10" fill="var(--muted)">J, B, K, spasticity</text>
+
+          <text x="380" y="114" font-size="10.5" font-family="JetBrains Mono, monospace" fill="var(--muted)">θ_j feedback</text>
+        </g>
+      </svg>
+    </div>
+</div>
+  <p class="caption">Three speeds, one loop. The EMG hint (top) is feedforward: it never closes a loop, so its delays cannot destabilise anything. The measurement path (left) and the motion path (bottom) form the loop that stability applies to. "Transmission → wrist" is drawn once but is two different parts: RUD's cable and FE's added spring.</p>
+</section>
+
+
+<!-- ============ PART 3 ============ -->
+<section id="params">
+  <div class="part-head"><span class="part-num">PART 3</span><h2>The numbers we need</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">The short version</span>
+    <p>Part 2 is full of symbols. Some are facts we already know, some are choices we make, and some are numbers we must go and measure. This table sorts every one of them, and it is the to-do list for the whole experimental programme.</p>
+  </div>
+
+  <p>Three labels only: <span class="chip have">KNOWN</span> already established, <span class="chip choose">CHOSEN</span> a design decision we own and must be able to justify, <span class="chip measure">MEASURE</span> a number we must go and get. The right-hand columns say which test produces it and what range is sensible; a result far outside that range is a warning sign (Part 4 explains each).</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Symbol</th><th>What it is, plainly</th><th>Unit</th><th>Status</th><th>Comes from</th><th>Sensible range</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">J<sub>h</sub></td><td>How heavy the hand plus plate is to turn</td><td class="num">kg·m²</td><td><span class="chip measure">Measure</span></td><td>Test 1, 1b</td><td class="num">0.001 – 0.006</td></tr>
+      <tr><td class="sym">B<sub>h</sub></td><td>How sticky the wrist is (resists speed)</td><td class="num">N·m·s/rad</td><td><span class="chip measure">Measure</span></td><td>Test 1, 3</td><td class="num">0.005 – 0.08</td></tr>
+      <tr><td class="sym">K<sub>h</sub></td><td>How springy the wrist is (pulls back to rest)</td><td class="num">N·m/rad</td><td><span class="chip measure">Measure</span></td><td>Test 2, 3</td><td class="num">0.43 – 1.89</td></tr>
+      <tr><td class="sym">θ<sub>0</sub></td><td>Where the wrist rests with no springy pull</td><td class="num">rad</td><td><span class="chip measure">Measure</span></td><td>Test 2</td><td class="num">±10°</td></tr>
+      <tr><td class="sym">b<sub>s</sub></td><td>How steeply the spasticity reflex climbs once switched on</td><td class="num">N·m·s/rad</td><td><span class="chip measure">Measure</span></td><td>Test 4</td><td class="num">0 – 0.5</td></tr>
+      <tr><td class="sym">θ̇<sub>th</sub></td><td>The speed at which the reflex switches on</td><td class="num">rad/s</td><td><span class="chip measure">Measure</span></td><td>Test 4</td><td class="num">0.2 – 3</td></tr>
+      <tr class="hl"><td class="sym">k<sub>θ,rud</sub></td><td>Stiffness of the RUD cable (the torque sensor's calibration)</td><td class="num">N·m/rad</td><td><span class="chip measure">Measure</span></td><td><b>Test 0: gates everything</b></td><td class="num">50 – 200</td></tr>
+      <tr class="hl"><td class="sym">k<sub>θ,fe</sub></td><td>Stiffness of the FE added spring</td><td class="num">N·m/rad</td><td><span class="chip measure">Measure</span></td><td><b>Test 0: gates FE's torque loop</b></td><td class="num">40 – 60 target</td></tr>
+      <tr><td class="sym">r<sub>m</sub>, r<sub>j</sub></td><td>Pulley radii (the gear ratio between motor and joint)</td><td class="num">m</td><td><span class="chip measure">Measure</span></td><td>Calipers</td><td class="num">0.01 – 0.05</td></tr>
+      <tr><td class="sym">K<sub>s</sub></td><td>How stiff the forearm shell is (it must not flex)</td><td class="num">N·m/rad</td><td><span class="chip measure">Measure</span></td><td>Test 6</td><td class="num">≥ 36 required</td></tr>
+      <tr><td class="sym">T<sub>d</sub></td><td>Delay in the control loop</td><td class="num">s</td><td><span class="chip measure">Measure</span></td><td>Test 7</td><td class="num">2 – 8 ms</td></tr>
+      <tr><td class="sym">f<sub>s</sub>, ζ<sub>s</sub></td><td>How quickly and smoothly the motor reaches a new target</td><td class="num">Hz, no unit</td><td><span class="chip measure">Measure</span></td><td>Test 8</td><td class="num">5 – 15 Hz</td></tr>
+      <tr><td class="sym">c<sub>12</sub></td><td>How much moving one axis disturbs the other</td><td class="num">no unit</td><td><span class="chip measure">Measure</span></td><td>Test 5</td><td class="num">&lt; 0.10 wanted</td></tr>
+      <tr><td class="sym">M<sub>d</sub></td><td>Weight of the pretend model</td><td class="num">kg·m²</td><td><span class="chip choose">Chosen</span></td><td>M<sub>d</sub> ≥ 3J<sub>h</sub></td><td class="num">0.010</td></tr>
+      <tr><td class="sym">B<sub>d</sub></td><td>Stickiness of the pretend model</td><td class="num">N·m·s/rad</td><td><span class="chip choose">Chosen</span></td><td>Eq. 2.7</td><td class="num">0.201</td></tr>
+      <tr><td class="sym">K<sub>d</sub></td><td>Springiness of the pretend model: the "how much help" knob</td><td class="num">N·m/rad</td><td><span class="chip choose">Chosen</span></td><td>5 assist levels</td><td class="num">0.4 / 0.8 / 1.6 / 3.2 / 6.4</td></tr>
+      <tr><td class="sym">T<sub>s</sub></td><td>Time between loop ticks</td><td class="num">s</td><td><span class="chip choose">Chosen</span></td><td>Design</td><td class="num">0.002 (500 Hz)</td></tr>
+      <tr><td class="sym">τ<sub>max</sub></td><td>Strongest torque the motor may be asked for</td><td class="num">N·m</td><td><span class="chip have">Known</span></td><td>Datasheet</td><td class="num">0.98 rated / 2.94 stall</td></tr>
+      <tr><td class="sym">θ<sub>lim</sub></td><td>Furthest the device may move (mechanical stop)</td><td class="num">deg</td><td><span class="chip choose">Chosen</span></td><td>Safety</td><td class="num">±45</td></tr>
+      <tr><td class="sym">q</td><td>The smallest angle step the encoder can report</td><td class="num">deg</td><td><span class="chip have">Known</span></td><td>12-bit, 4096 counts</td><td class="num">0.088</td></tr>
+      <tr class="hl"><td class="sym">MDC</td><td>Smallest change we can trust, after taking the device off and putting it back on</td><td class="num">deg</td><td><span class="chip measure">Measure</span></td><td><b>Test 9</b></td><td class="num">≤ 2 required</td></tr>
+      <tr><td class="sym">K<sub>end</sub>/K<sub>mid</sub></td><td>How much stiffer the wrist gets near the end of its range</td><td class="num">no unit</td><td><span class="chip measure">Measure</span></td><td>Test 2b</td><td class="num">1 – 4+</td></tr>
+      <tr><td class="sym">τ<sub>cond</sub></td><td>How fast repeated stretching softens the wrist</td><td class="num">passes</td><td><span class="chip measure">Measure</span></td><td>Test 4b</td><td class="num">not yet known</td></tr>
+      <tr><td class="sym">θ<sub>0,dev</sub></td><td>The device's neutral offset (a patient's resting posture is flexed, not 0)</td><td class="num">deg</td><td><span class="chip measure">Measure</span></td><td>per subject, per mount</td><td class="num">flexed, not 0</td></tr>
+      <tr><td class="sym">finger posture</td><td>Fixed finger position, because finger tendons cross the wrist</td><td class="num">no unit</td><td><span class="chip choose">Chosen</span></td><td>mechanical constraint</td><td class="num">standardised</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note bad">
+    <span class="lbl">An early range error, now in the failure log (F-04). Keep it there.</span>
+    <p>K<sub>h</sub> was first reported as possibly 8.6 to 22.9 N·m/rad, which would have suggested the design might be unstable. That range came from Crisco et al., measured on <em>cadaver</em> wrists at the <em>ends</em> of the range of motion, and was wrongly applied to a near-neutral operating point. Falzarano's live-subject data (0.43 to 1.89 N·m/rad) is the correct reference. A documented, corrected error is worth more to a reader than a clean story.</p>
+  </div>
+</section>
+
+<!-- ============ PART 4 ============ -->
+<section id="tests">
+  <div class="part-head"><span class="part-num">PART 4</span><h2>The tests: how we find the numbers</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">The short version</span>
+    <p>Fourteen tests, each answering one question about the hardware or the wrist. Every test has a purpose, a fixed procedure, a defined result and a pass limit. <strong>Every test runs on the mechanical surrogate before it runs on a person</strong>, so that a strange answer on a human can be blamed on the human or on our method, not both.</p>
+  </div>
+
+  <h3>4.0 Five ideas used in every test</h3>
+  <p>Read these once. The tests below simply use them.</p>
+
+  <h4>4.0.1 What "recording at 500 Hz" means, and how it is done</h4>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>500 Hz means the computer reads the sensors <strong>500 times a second</strong>, once every 2 milliseconds, and writes down each reading with the exact time it was taken. A 4 second recording gives 2,000 pairs of (time, angle). Those pairs are the "dots" we later fit curves to.</p>
+  </div>
+  <div class="note">
+    <span class="lbl">How it is done</span>
+    <ol class="step-list">
+      <li>The PC script (decision D-22 moved the loop from the old ESP32 board to the PC) reads the joint encoder and the servo at a fixed pace.</li>
+      <li>Every reading is stored with a time stamp <code>t_us</code>. The time stamp, never the sample number, is the truth about when something happened.</li>
+      <li>The script checks for gaps. A gap longer than 3 ms in the 500 Hz log means the PC stalled, and that trial is suspect (section 5.4).</li>
+    </ol>
+    <p><strong>Open item:</strong> since D-22 the link between the AS5600 and the PC is not yet specified (it needs an I²C-to-USB bridge or equivalent). Until that is chosen, 500 Hz is a target, and Test 7 measures what is actually achievable.</p>
+  </div>
+
+  <h4>4.0.2 Averaging, noise and the staircase</h4>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>A joint that is perfectly still still gives readings that flicker by a step or two (0.088° each). That flicker is noise. If the thing is <em>not moving</em>, averaging many readings gives a steadier answer than any single one. Averaging a position is not the same as calculating a speed: a speed needs the <em>change</em> in position divided by time. We average a still position only to reduce flicker.</p>
+  </div>
+  <div class="note warn">
+    <span class="lbl">The limit of averaging</span>
+    <p>Averaging only removes flicker that actually moves between steps. If a reading sits stuck on one step for the whole 5 seconds, the average is that step, and its rounding error stays. So a very small signal (only a step or two in total) is risky to measure, however long you average. Whenever a test relies on tiny angles, the test card says so and suggests a way to enlarge the signal.</p>
+  </div>
+
+  <h4>4.0.3 Fitting a curve to the dots</h4>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>We have dots (the recording) and a formula that describes how a spring, weight and damper should behave. The formula has adjustable numbers. The computer does this over and over: (1) start with a guess; (2) draw the formula's curve; (3) measure how far the dots are from the curve; (4) nudge the numbers to make that gap smaller; (5) stop when it cannot get any smaller. The numbers it ends with are the answer. The method is called <strong>nonlinear least squares</strong>, and in MATLAB the search command is <code>fminsearch</code>. "Multi-start" means it is run from several different starting guesses, so it does not get stuck on a poor answer.</p>
+    <p><strong>R²</strong> is the score for how close the curve ended up to the dots: 1 is perfect, and 0.95 means the curve explains 95% of the ups and downs in the data.</p>
+  </div>
+  <div class="note warn">
+    <span class="lbl">What one recording can and cannot tell you</span>
+    <p>A single released-hand recording determines <strong>two</strong> numbers: the natural frequency ω<sub>n</sub> and the damping ratio ζ. It cannot give J, B and K separately. If you scale all three by the same factor (double each), the curve is identical. To separate them you need extra information: a stiffness from Test 2, or a known added weight (Test 1b). The test cards say which.</p>
+  </div>
+
+  <h4>4.0.4 Why every test runs on the surrogate first</h4>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>If we test a person and get J<sub>h</sub> = 0.0041, we cannot tell whether that is their wrist or a bug in our method. So we first build a mechanical stand-in whose true inertia and stiffness we <em>know</em> (it is made from parts we can weigh and measure). We run the identical test and code on it. If the method returns the known answer, we have earned the right to trust it on a person. If it does not, we fix the method before any person is involved.</p>
+  </div>
+  <div class="tech">
+    <span class="tech-lbl">Technical layer</span>
+    <p>The surrogate's inertia is computed to ±0.26% (Test 1b). Surrogate files use <code>SRG</code> as the subject ID with the true values in the filename (for example <code>SRG_J128K090_T1_FE_r01</code>: J = 1.28×10⁻³, K = 0.90). The surrogate pass check is <strong>agreement with the known value within a few percent</strong>, not merely "inside the human range": a rig with known J has no excuse for a loose pass window.</p>
+  </div>
+
+  <h4>4.0.5 Reading a pass criterion</h4>
+  <ul>
+    <li><strong>Spread (repeatability):</strong> repeat a test five times. If the five answers differ by more than the stated percentage, the method or the way it is done is inconsistent. Spread is measured as the range of the answers divided by their mean.</li>
+    <li><strong>Hysteresis:</strong> load up, then unload, and compare. Defined here as the largest gap between the up curve and the down curve at the same load, divided by the full-scale reading. A big gap means something is slipping, sticking or creeping.</li>
+    <li><strong>Pass limits are fixed before the test.</strong> Changing a limit after seeing the result is how people fool themselves.</li>
+  </ul>
+
+  <h3>4.1 Map of the tests</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Test</th><th>The question it answers</th><th>Finds</th><th>Needs first</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td class="sym">0</td><td>How springy is the transmission, i.e. can we trust the torque sensor?</td><td>k<sub>θ</sub> (per axis)</td><td>Nothing: do this first</td></tr>
+      <tr><td class="sym">1</td><td>How does a released hand settle?</td><td>ω<sub>n</sub>, ζ, then B<sub>h</sub></td><td>Test 0, and Test 2 or 1b for J<sub>h</sub></td></tr>
+      <tr><td class="sym">1b</td><td>What if we add a known weight?</td><td>J<sub>h</sub>, K<sub>h</sub></td><td>Test 1</td></tr>
+      <tr><td class="sym">2</td><td>How strongly does the wrist pull back when stretched slowly?</td><td>K<sub>h</sub>, θ<sub>0</sub></td><td>Test 0</td></tr>
+      <tr><td class="sym">3</td><td>Do J, B and K together agree when shaken at many speeds?</td><td>J, B, K as a frequency response</td><td>Tests 1, 2</td></tr>
+      <tr><td class="sym">4</td><td>At what speed does spasticity switch on, and how strongly?</td><td>b<sub>s</sub>, θ̇<sub>th</sub></td><td>Tests 1 to 3</td></tr>
+      <tr><td class="sym">2b</td><td>How hard does the wrist feel near the end of its range?</td><td>K<sub>end</sub>/K<sub>mid</sub></td><td>Test 2 data</td></tr>
+      <tr><td class="sym">4b</td><td>How much does repeated stretching soften the wrist?</td><td>Softening time constant</td><td>Test 4 setup</td></tr>
+      <tr><td class="sym">5</td><td>Does moving one axis disturb the other?</td><td>c<sub>12</sub></td><td>Test 0</td></tr>
+      <tr class="hl"><td class="sym">6</td><td>Is the forearm shell stiff enough to be a fixed reference?</td><td>K<sub>s</sub></td><td>Nothing: do this early</td></tr>
+      <tr><td class="sym">7</td><td>How fast does the control loop really run?</td><td>T<sub>d</sub>, real loop rate</td><td>Nothing</td></tr>
+      <tr><td class="sym">8</td><td>How fast and smooth is the motor?</td><td>f<sub>s</sub>, ζ<sub>s</sub></td><td>Surrogate</td></tr>
+      <tr class="hl"><td class="sym">9</td><td>If we take the device off and put it back, how much does the answer move?</td><td>MDC</td><td>Tests 1, 2</td></tr>
+      <tr class="hl"><td class="sym">11</td><td>Do the device's degrees equal the clinic's degrees?</td><td>Bland-Altman agreement</td><td>A goniometer</td></tr>
+    </tbody>
+  </table></div>
+  <p>Every test card below has the same parts: <strong>in one line</strong>, <strong>in plain words</strong>, <strong>why this test</strong>, <strong>setup and steps</strong>, <strong>what we expect</strong>, <strong>if it goes wrong</strong>, <strong>pass</strong>, and a <strong>technical layer</strong>.</p>
+
+
+
+
+  <!-- =================== TEST 0 =================== -->
+  <div class="test gate">
+    <div class="test-head"><span class="test-id">TEST 0</span><h3>Transmission stiffness</h3></div>
+    <p class="yields">yields <b>k<sub>θ</sub></b>: gates the torque estimate and therefore everything downstream</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>We hang known weights on a lever attached to the hand plate, while the motor holds still. Each weight twists the transmission spring a little. More weight, more twist. If we plot weight-torque against twist, the slope of the line is the spring's stiffness, k<sub>θ</sub>. It is the same trick as calibrating a bathroom scale: put on known weights, see how far the spring moves.</p>
+      <p>Picture a beam fixed at one end with weights added to the free end: the more weight, the more it bends. Here the motor end is the "fixed" end. It is never perfectly fixed (the motor holds its position through a control loop, and the gears have some play), so we record <strong>both</strong> encoders, the motor's and the joint's, and use the difference.</p>
+    </div>
+
+    <h4>Why this test, and why first</h4>
+    <p>Every torque number in this document (the identification tests, the stability margins, the assist controller itself) is computed from Eq. 2.9, and Eq. 2.9 is only as good as the single constant k<sub>θ</sub> that multiplies the twist. Measuring k<sub>θ</sub> directly, instead of trusting a datasheet or a hand calculation, turns "the cable or spring is a torque sensor" from a claim into a calibrated instrument.</p>
+
+    <h4>Setup</h4>
+    <p>Run it once <strong>per axis</strong>. RUD and FE are different transmissions (D-23), and each needs its own k<sub>θ</sub>.</p>
+    <ul>
+      <li><strong>RUD:</strong> device assembled, cable pre-tensioned to a recorded setting, both encoders live. Joint free. A lever of measured length clamped to the hand plate.</li>
+      <li><strong>FE:</strong> the same rig, but there is no cable to tension; the only springiness is the added series spring. If you want the "rigid link" number for the thesis, also run it on the bare direct link <em>before</em> the spring is fitted. It should land near the 1000 row of the table in section 2.3 (twist almost zero, about 64% noise). That is the evidence that motivated the spring, not a failed test.</li>
+    </ul>
+
+    <h4>Steps</h4>
+    <ol class="step-list">
+      <li>Command the servo to hold a mid-range position. Leave it there for the whole test.</li>
+      <li>Hang a known mass on the lever. Torque is mass × gravity × lever length: τ = m·g·L. Start with 50 g on 100 mm: 0.05 × 9.81 × 0.1 = 0.0491 N·m.</li>
+      <li>Record both encoder readings for 5 seconds, then average each (the weight is not moving, so averaging just steadies the reading).</li>
+      <li>Repeat for 50, 100, 150 and 200 g. That is one <strong>up sweep</strong>. Then take the weights off in reverse order, 200, 150, 100, 50 g, as the <strong>down sweep</strong>. Comparing the two sweeps gives the hysteresis.</li>
+      <li>Plot torque τ against twist Δ = θ<sub>m,refl</sub> − θ<sub>j</sub>. The slope is k<sub>θ</sub>.</li>
+    </ol>
+    <div class="tw"><table>
+      <thead><tr><th>Mass</th><th>Torque on a 100 mm lever</th><th>If k<sub>θ</sub> were 80 N·m/rad, the twist would be</th></tr></thead>
+      <tbody>
+        <tr><td class="num">50 g</td><td class="num">0.049 N·m</td><td class="num">0.035° (0.4 of an encoder step)</td></tr>
+        <tr><td class="num">100 g</td><td class="num">0.098 N·m</td><td class="num">0.070° (0.8 of a step)</td></tr>
+        <tr><td class="num">150 g</td><td class="num">0.147 N·m</td><td class="num">0.105° (1.2 steps)</td></tr>
+        <tr><td class="num">200 g</td><td class="num">0.196 N·m</td><td class="num">0.140° (1.6 steps)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note warn">
+      <span class="lbl">The signal is small. Plan for it.</span>
+      <p>As the table shows, the whole test spans only about half a step to about two steps of the encoder. Averaging helps only if the readings flicker across step boundaries (section 4.0.2). Two ways to enlarge the signal: use a <strong>longer lever</strong> (200 mm doubles every torque and every twist, and 200 g then gives 0.39 N·m, well below the 0.98 N·m rated torque), or add more weights if it is mechanically safe. Decide before the first run, not after a poor fit.</p>
+    </div>
+
+    <h4>Record</h4>
+    <p><code>mass_g, direction, theta_m_avg, theta_j_avg, delta_avg, delta_std, pretension_setting</code></p>
+    <p><code>direction</code> is <code>up</code> or <code>down</code>: which sweep the row belongs to. <code>delta_std</code> is the flicker (standard deviation) of the twist during the 5 seconds. <code>pretension_setting</code> is the RUD cable tension, or the spring part ID on FE.</p>
+
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>The points lie close to a straight line through the origin, and the up and down sweeps nearly overlap. The slope is between 30 and 250 N·m/rad. RUD usually lands at 50 to 200; FE's spring was sized for 40 to 60.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <ul>
+        <li><strong>Slope above 250 (too stiff):</strong> the twist is so small the staircase noise dominates. Add compliance: on RUD, add a series spring; on FE, size the spring <strong>softer</strong> (a stiffer spring would push k<sub>θ</sub> higher).</li>
+        <li><strong>Slope below 30 (too soft):</strong> the transmission will ring too close to the control speed. On RUD, increase pre-tension and repeat. On FE there is no tension knob: the fitted spring itself is too soft and must be re-sized stiffer.</li>
+        <li><strong>Points curve instead of lying on a line:</strong> the cable or spring is not behaving elastically. Look for a slipping clamp, a cable running over an edge, or a spring bottoming out.</li>
+        <li><strong>The up and down sweeps are far apart:</strong> something slips or creeps. Dyneema cable stretches slowly; re-tension and wait before repeating.</li>
+      </ul>
+    </div>
+    <div class="pass"><b>Pass:</b> R² ≥ 0.98 on the straight-line fit; hysteresis between the up and down sweeps under 15% of the full-scale twist; k<sub>θ</sub> between 30 and 250 N·m/rad.</div>
+    <div class="tech">
+      <span class="tech-lbl">Technical layer</span>
+      <p>Fit τ = k<sub>θ</sub>Δ by least squares over all eight rows (four up, four down). Report k<sub>θ</sub>, its standard error from the fit, R², and the hysteresis defined as max|Δ<sub>up</sub> − Δ<sub>down</sub>| / Δ<sub>max</sub> at matched mass. Store the result and its date in the metadata header of every later trial (section 5.3).</p>
+    </div>
+  </div>
+
+  <!-- =================== TEST 1 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 1</span><h3>Free oscillation</h3></div>
+    <p class="yields">yields <b>ω<sub>n</sub></b> and <b>ζ</b>, from which <b>B<sub>h</sub></b>, and <b>J<sub>h</sub></b> once K<sub>h</sub> is known · script <code>wrist_id_freeosc.m</code></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>The test is nothing more than this: the examiner lifts the relaxed hand a few degrees away from rest and lets go, cleanly, without pushing. The hand goes back to rest by itself, and we record <em>how</em> it goes back. Think of releasing a door fitted with a spring hinge and a closer. A quick snap-back with a small wobble tells you one thing about the door; a slow creep home tells you another.</p>
+      <p>What pulls the hand back is the <strong>springiness of the wrist's tissue (K<sub>h</sub>)</strong>, not gravity (the hand moves sideways, where gravity does not act along the motion). What slows it is the <strong>stickiness (B<sub>h</sub>)</strong>. What makes it slow to get going and slow to stop is its <strong>weight (J<sub>h</sub>)</strong>. All three show up in the shape of the return.</p>
+    </div>
+
+    <h4>Why this test</h4>
+    <p>It is the simplest way to see the wrist's own mechanics with the least equipment in the way. There is no torque sensor and no servo command in the measurement: only the joint encoder. The fewer things between the wrist and the number, the fewer ways the number can be wrong.</p>
+
+    <div class="note warn">
+      <span class="lbl">"Servo off" is not the same as "nothing attached"</span>
+      <p>A servo with its torque disabled still has gears that rub and a heavy motor rotor. Through the gear ratio, that rotor can feel many times heavier to the wrist than it really is. And if the plate is still joined to the motor through the twisting spring, the arrangement is no longer one swinging mass; it is two masses joined by a spring, and a single-mass curve will fit it badly. The result would be "limb + plate + part of the motor", not the wrist.</p>
+      <p><strong>Therefore:</strong> (1) <strong>uncouple the transmission</strong> from the hand plate for this test (cable off, or the servo mechanically disconnected) so that only the limb and the plate swing. If the design truly cannot be uncoupled, write that down as a limitation and report J<sub>h</sub> as "limb + plate + drivetrain". (2) Run a <strong>plate-only baseline</strong> with no limb, first on the surrogate, to measure the rig by itself. This is what lets "J<sub>h</sub> = limb + plate" be a statement you have checked, not assumed.</p>
+    </div>
+
+    <h4>Posture (gravity must stay out)</h4>
+    <ul>
+      <li><strong>RUD:</strong> forearm resting palm-down on a supported trough or table. The hand swings sideways across it.</li>
+      <li><strong>FE:</strong> forearm resting on its little-finger edge, thumb up (handshake position). The hand bends sideways across the table.</li>
+    </ul>
+
+    <h4>Steps</h4>
+    <ol class="step-list">
+      <li>Subject fully relaxed, forearm supported, correct posture for the axis, transmission uncoupled, servo off.</li>
+      <li>The examiner moves the hand 5 to 10° from neutral and releases cleanly: no push, no follow-through.</li>
+      <li>Record the joint angle at 500 Hz for 4 seconds (2,000 time-stamped readings; section 4.0.1). Record the EMG at the same time.</li>
+      <li>Repeat 5 times for each direction (released from the flexion side, and from the extension side; or from the radial and ulnar side for RUD). <strong>Discard any trial where the EMG shows voluntary muscle activity.</strong> A subject who helped or resisted is not a relaxed wrist.</li>
+    </ol>
+
+    <h4>What the computer does with the recording</h4>
+    <p>It fits the whole curve (all 2,000 dots) with a formula for a weight on a spring and damper, using multi-start <code>fminsearch</code> (section 4.0.3). The fit returns two numbers: the natural frequency ω<sub>n</sub> and the damping ratio ζ. It <strong>does not</strong> return J, B and K separately; one recording cannot (section 4.0.3). The remaining steps are:</p>
+    <ul>
+      <li><strong>K<sub>h</sub></strong> from Test 2 (slow stretch), then <strong>J<sub>h</sub> = K<sub>h</sub> / ω<sub>n</sub>²</strong>.</li>
+      <li>Or <strong>J<sub>h</sub> and K<sub>h</sub> together</strong> from Test 1b (added weight).</li>
+      <li>Then <strong>B<sub>h</sub> = 2·ζ·J<sub>h</sub>·ω<sub>n</sub></strong>.</li>
+    </ul>
+
+    <div class="note bad" style="margin:14px 0">
+      <span class="lbl">Failure F-01: why we do not use the log-decrement method</span>
+      <p>The classic textbook method reads two successive wobble peaks and computes the damping from their ratio. It failed validation badly: at a realistic ζ = 0.375 there are only one or two usable peaks, and the wrist may be overdamped, with none at all. The recovered ω<sub>n</sub> came out four orders of magnitude wrong. Full-curve fitting uses every sample instead of two peaks. This is in the thesis as a documented method rejection.</p>
+    </div>
+
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>With typical numbers (K<sub>h</sub> about 1 N·m/rad, J<sub>h</sub> about 0.003 kg·m², ζ about 0.375) the hand returns to rest within roughly 0.6 seconds, with one or two small overshoots, then sits still for the rest of the 4 seconds. The fit gets R² of 0.95 or better. The five repeats agree within 20%.</p>
+      <p>The wrist may also be overdamped and creep home with <em>no</em> visible wobble. That is not a failed test; the method handles both cases.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <ul>
+        <li><strong>R² low on one trial:</strong> the subject was probably not relaxed. Look at the EMG from that trial before blaming the fit.</li>
+        <li><strong>Each fit is good but the five answers differ by more than 20%:</strong> the examiner's release is inconsistent (a push, or a slow, soft let-go). Re-brief and repeat. Do not average the problem away.</li>
+        <li><strong>The curve starts with a bump or a kick:</strong> a push at release. Same fix.</li>
+        <li><strong>No wobble at all:</strong> the wrist is overdamped, and the curve is close to a single exponential. ω<sub>n</sub> is then poorly determined and so is J<sub>h</sub>. Report the uncertainty instead of a falsely exact number.</li>
+        <li><strong>J<sub>h</sub> outside its window on the surrogate rig</strong>, whose true J is known: the fault is in the method or code, not the rig. Do <strong>not</strong> collect human data until it is resolved.</li>
+      </ul>
+    </div>
+    <div class="pass"><b>Pass:</b> fit R² ≥ 0.95; spread across the 5 trials under 20%; J<sub>h</sub> within 0.001 to 0.006 kg·m² on a human; on the surrogate, J<sub>h</sub> within a few percent of the rig's known value (section 4.0.4).</div>
+    <div class="tech">
+      <span class="tech-lbl">Technical layer</span>
+      <p>Free response of J<sub>h</sub>θ̈ + B<sub>h</sub>θ̇ + K<sub>h</sub>(θ − θ<sub>0</sub>) = 0 from initial displacement and zero velocity. For ζ &lt; 1: θ(t) = θ<sub>0</sub> + A·e<sup>−ζω<sub>n</sub>t</sup>·cos(ω<sub>d</sub>t + φ), with ω<sub>d</sub> = ω<sub>n</sub>√(1 − ζ²), ω<sub>n</sub> = √(K<sub>h</sub>/J<sub>h</sub>), ζ = B<sub>h</sub> / (2√(J<sub>h</sub>K<sub>h</sub>)). For ζ &gt; 1 the response is a sum of two decaying exponentials; the fit covers both. Because the free response depends on J, B and K only through ω<sub>n</sub> and ζ, J, B and K are not individually identifiable from this test alone.</p>
+    </div>
+  </div>
+
+  <!-- =================== TEST 1b =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 1b</span><h3>Added inertia</h3></div>
+    <p class="yields">yields <b>J<sub>h</sub></b> and <b>K<sub>h</sub></b> from the encoder alone: no torque sensor needed</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Test 1 gives one clue about the wrist: how fast it swings (ω<sub>n</sub>). But a heavy wrist with a strong spring can swing at the same speed as a light wrist with a weak spring, so one clue cannot tell weight from springiness. The fix: repeat Test 1 after bolting a <strong>known extra weight</strong> to the hand plate. The wrist now swings more slowly, and <em>how much</em> slower depends on how heavy the wrist already was. Two speeds, one known weight, and the maths can separate the two unknowns.</p>
+    </div>
+
+    <h4>Why this test</h4>
+    <p>Test 1 gives ω<sub>n</sub>. J<sub>h</sub> and K<sub>h</sub> are two unknowns, so ω<sub>n</sub> alone cannot separate them without assuming one. Adding a precisely known inertia ΔJ and repeating the same test gives a second, independent equation at a second, known frequency, which is enough to solve for both without assuming either. No torque sensor is needed.</p>
+
+    <h4>Steps</h4>
+    <ol class="step-list">
+      <li>Run Test 1 bare. Fit ω<sub>1</sub>.</li>
+      <li>Bolt the known inertia ΔJ to the hand plate. Run Test 1 again in exactly the same way (same posture, same release, same transmission uncoupling). Fit ω<sub>2</sub>.</li>
+      <li>Solve for J and K.</li>
+    </ol>
+    <div class="eq"><span class="body">J = ΔJ·ω<sub>2</sub>² / (ω<sub>1</sub>² − ω<sub>2</sub>²)&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;K = J·ω<sub>1</sub>²</span><span class="tag">(4.1)</span></div>
+    <p>Where it comes from: the stiffness is the same in both runs, so K = J·ω<sub>1</sub>² = (J + ΔJ)·ω<sub>2</sub>². Rearranging gives J.</p>
+
+    <h4>Building ΔJ</h4>
+    <p>Two 100 g masses at r = 80 mm on a light cross-arm give ΔJ = 2mr² = <strong>1.28×10⁻³ kg·m²</strong>. That is a 43% change on a typical J<sub>h</sub> of 0.003, well above the noise. With mass known to ±0.01 g and radius to ±0.1 mm, ΔJ is uncertain by <strong>±0.26%</strong> (0.01% from the mass plus twice 0.125% from the radius). That number goes straight into the thesis as the traceability chain. Weigh the cross-arm and include its own small inertia, or measure it in the plate-only run; otherwise it is an unaccounted part of ΔJ.</p>
+
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>The loaded swing is slower. With J<sub>h</sub> = 0.003 and ΔJ = 0.00128, ω<sub>2</sub> should be about 84% of ω<sub>1</sub> (√(0.003/0.00428)). J and K should agree with the J from Tests 1 and 2 and the K from Test 2 within 15%.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <ul>
+        <li><strong>J or K disagrees with the other tests by more than 15%:</strong> that is information, so chase it; do not average it away. Likely causes, in order: the masses were not at the stated radius; the cross-arm's inertia was ignored; the strap or mount shifted between the two runs; the subject was less relaxed in one run.</li>
+        <li><strong>ω<sub>2</sub> is not clearly lower than ω<sub>1</sub>:</strong> the added inertia did not actually couple to the swinging part, or the fit is poor. Check both R² values first.</li>
+      </ul>
+    </div>
+    <div class="pass"><b>Pass:</b> J and K agree with Tests 1 and 2 within 15%.</div>
+  </div>
+
+  <!-- =================== TEST 2 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 2</span><h3>Quasi-static ramp</h3></div>
+    <p class="yields">yields <b>K<sub>h</sub></b>, <b>θ<sub>0</sub></b> · script <code>wrist_id_static.m</code></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Move the wrist <em>very slowly</em> through its range while the torque is recorded. Slowly enough that speed-dependent resistance (damping, the spasticity reflex) is negligible. What is left is pure springiness: the further you stretch, the more it pulls back. The slope of "pull-back torque against angle" is K<sub>h</sub>.</p>
+    </div>
+
+    <h4>Why this test</h4>
+    <p>It isolates stiffness from the other effects, by taking speed out of the picture. At 5°/s (0.087 rad/s), even the largest expected damping (0.08 N·m·s/rad) adds only about 0.007 N·m, while the spring torque at 30° is about 0.5 N·m, so damping is around 1% of the signal.</p>
+
+    <h4>Steps</h4>
+    <ol class="step-list">
+      <li>Drive the joint very slowly (under 5°/s) through ±30°, so inertial and damping effects are negligible and only stiffness remains.</li>
+      <li>Record the torque estimate τ̂ and the angle θ throughout. Three sweeps in each direction.</li>
+      <li>Fit K separately on each side of neutral over a stated angular window. The wrist is not equally stiff both ways, so one number for both sides would hide something real.</li>
+    </ol>
+
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>A gently curving torque-angle line, steeper further from neutral. K<sub>h</sub> between 0.2 and 3.0 N·m/rad, usually 0.43 to 1.89. The script prints the comparison with the Falzarano literature range automatically. A thin loop between the forward and return paths (hysteresis) is normal; its area is reported, not hidden.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <ul>
+        <li><strong>K<sub>h</sub> far above 3:</strong> the subject is not relaxed (muscles pushing back), or the forearm shell is flexing (Test 6), or the window includes the very end of the range.</li>
+        <li><strong>A wide loop:</strong> the tissue is creeping or the sweep is faster than 5°/s.</li>
+        <li><strong>Different slopes on the two sides:</strong> expected, not a fault.</li>
+      </ul>
+    </div>
+    <div class="pass"><b>Pass:</b> K<sub>h</sub> in 0.2 to 3.0 N·m/rad; hysteresis loop area reported, not hidden; the script prints the Falzarano literature check (0.43 to 1.89) automatically.</div>
+  </div>
+
+  <!-- =================== TEST 3 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 3</span><h3>PRBS perturbation</h3></div>
+    <p class="yields">yields <b>Z<sub>env</sub>(jω)</b> across the band · scripts <code>wrist_prbs.m</code>, <code>wrist_id_perturb.m</code></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Instead of one slow stretch or one release, we gently jiggle the wrist back and forth with a pattern that looks random but is exactly known (a <strong>PRBS</strong>, pseudo-random binary sequence). That pattern contains many speeds at once. We then see how strongly the wrist resists at each speed. It is like tapping a wine glass with many different notes at once to see which ring.</p>
+    </div>
+
+    <h4>Why this test</h4>
+    <p>It is the only test that gives J, B and K <em>at the same time and independently</em>, as a response across a range of speeds rather than three separate fits. It is the one a reviewer will respect most, because agreement between this and Tests 1 and 2 is strong evidence that the model is right.</p>
+
+    <h4>Steps</h4>
+    <ol class="step-list">
+      <li>Generate the sequence: <code>wrist_prbs(10, 0.025, 1000, deg2rad(4))</code>. Order 10 (a pattern of 1,023 steps), 25 ms per step, ±4° amplitude. The pattern lasts about 26 seconds.</li>
+      <li>Command it as a small position jiggle about neutral. The subject is relaxed and <em>not reacting</em>.</li>
+      <li>Record the angle θ and torque τ̂ at 500 Hz for 30 seconds.</li>
+    </ol>
+
+    <h4>What the computer does</h4>
+    <p>It computes how strongly the torque responds at each frequency (<code>cpsd</code> and <code>pwelch</code>), and a <strong>coherence</strong> score (<code>mscohere</code>). Coherence, from 0 to 1, says how much of the response at a given frequency is truly caused by the jiggle. <strong>Every frequency where coherence is below 0.8 is thrown away</strong>, since it is noise dressed up as data. Then it fits J, B and K to what is left by complex least squares.</p>
+
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>Coherence at or above 0.8 across at least 1 to 10 Hz. Fitted J, B and K within 25% of the values from Tests 1 and 2.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <ul>
+        <li><strong>Low coherence:</strong> the subject is reacting to the jiggle (voluntary response), or the motion is too small compared with the noise. Re-brief to relax and not resist.</li>
+        <li><strong>Fitted values disagree with Tests 1 and 2 by more than 25%:</strong> treat it as a finding, and look for the cause (posture, mount, transmission still coupled) before choosing which test to believe.</li>
+      </ul>
+    </div>
+    <div class="pass"><b>Pass:</b> coherence ≥ 0.8 across at least 1 to 10 Hz; fitted J, B, K agree with Tests 1 and 2 within 25%.</div>
+    <div class="tech">
+      <span class="tech-lbl">Technical layer</span>
+      <p>Estimate Z(jω) = τ̂(jω)/θ(jω) (torque per unit angle, matching Eq. 2.3) from cross and auto spectra; fit [real(A); imag(A)] \ [real(Z); imag(Z)] to Z<sub>env</sub>(jω) = −J<sub>h</sub>ω² + jB<sub>h</sub>ω + K<sub>h</sub> over the unmasked bins.</p>
+    </div>
+  </div>
+
+
+
+  <!-- =================== TEST 4 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 4</span><h3>Velocity-graded ramps</h3></div>
+    <p class="yields">yields <b>b<sub>s</sub></b>, <b>θ̇<sub>th</sub></b> · script <code>wrist_id_spasticity.m</code></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Spasticity is a reflex that depends on <em>speed</em>: move the wrist slowly and the muscle stays quiet; move it fast enough and the muscle "catches" and pushes back. So to find it, we move the wrist through the same range at several different fixed speeds and see at which speed the extra resistance appears and how fast it grows. This test produces the headline clinical result.</p>
+    </div>
+
+    <h4>Steps</h4>
+    <ol class="step-list">
+      <li>Drive constant-speed ramps through the same angular range at 10, 30, 60, 120 and 240°/s.</li>
+      <li>Record the torque estimate and angle throughout each ramp. <strong>Two passes per speed</strong>, in <strong>random order</strong>, with at least <strong>60 seconds of rest</strong> between passes. A patient protocol is <strong>two passes total</strong>.</li>
+      <li><strong>Subtract the ordinary, non-reflex resistance.</strong> From Tests 1 to 3 we know how a wrist with no reflex would resist (its J, B and K). Whatever resistance is left over is the reflex.</li>
+      <li>Fit the leftover: search for the threshold speed (grid search), and fit the slope above it (least squares).</li>
+    </ol>
+
+    <div class="note bad" style="margin:14px 0">
+      <span class="lbl">Failure F-06: why this is two passes and not fifteen</span>
+      <p>The original protocol was 5 speeds × 3 repeats, swept slowest to fastest. A physiotherapist in Interview 2 said: <em>"we flex and extend at most twice; we do not exceed that."</em> That describes <strong>thixotropic softening</strong>: repeated stretching of the same limb progressively lowers its resistance, like a rubber band that loosens after being stretched. Sweeping from slow to fast would have confused "repetition number" with "speed" systematically, so the softening would have looked exactly like a speed effect. The fix (random order, few passes, long rests) was caught before any subject was tested.</p>
+    </div>
+
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>The leftover resistance rises steadily with speed. The threshold lands between 0.2 and 3 rad/s (about 11 to 170°/s, which is why the test speeds run from 10 to 240°/s). On a healthy subject, b<sub>s</sub> should come out close to zero. <strong>That is the negative control, and you must show it.</strong></p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <ul>
+        <li><strong>Healthy subject shows clear spasticity:</strong> suspect the passive model (re-check Tests 1 to 3) or a tense subject, not a discovery.</li>
+        <li><strong>Leftover is flat on a spastic subject:</strong> the threshold may be above 240°/s, or the passive model is over-subtracting.</li>
+        <li><strong>Leftover goes up and down with no pattern:</strong> check the random order was really used, and the rest time kept.</li>
+      </ul>
+    </div>
+    <div class="pass"><b>Pass:</b> residual torque rises monotonically with speed; threshold lands between 0.2 and 3 rad/s. On a healthy subject b<sub>s</sub> is near zero.</div>
+  </div>
+
+  <!-- =================== TEST 2b =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 2b</span><h3>End-feel index</h3></div>
+    <p class="yields">yields <b>K<sub>end</sub></b>, <b>K<sub>end</sub>/K<sub>mid</sub></b> · script <code>wrist_id_endfeel.m</code> · <strong>no new experiment: runs on Test 2 data</strong></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Clinicians talk about "end-feel": how the resistance builds as the joint nears the end of its range. A <em>hard</em> end-feel is like running into a wall (resistance shoots up); a <em>soft</em> one builds gradually. Doctors judge it by hand. Test 2 already recorded the torque against angle, so the same curve can give a number for it for free.</p>
+    </div>
+
+    <p>In Interview 2, a physiotherapist explained the Ashworth grade this way: <em>"It relies heavily on tactile feedback ('end-feel')... what feels stiff to me might feel less stiff to a male physio with more physical strength."</em> That is the mechanism of the poor agreement between examiners, in a practitioner's own words: the grade depends on the examiner's own strength.</p>
+    <ol class="step-list">
+      <li>Take the Test 2 torque-angle curve.</li>
+      <li>Fit the slope over the middle band, and separately over the last 20% of the range.</li>
+      <li>The ratio of the two slopes is the index.</li>
+    </ol>
+    <div class="note good">
+      <span class="lbl">What we expect</span>
+      <p>An index between about 1 (the curve is straight) and 4 or more (a sharp wall at the end).</p>
+    </div>
+    <div class="pass"><b>Report:</b> alongside the Ashworth grade, never instead of it. The comparison between the two is the point.</div>
+  </div>
+
+  <!-- =================== TEST 4b =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 4b</span><h3>Stretch-conditioning decay</h3></div>
+    <p class="yields">yields the softening time constant: <strong>the confound turned into a measurement</strong></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Test 4 revealed that stretching the same limb again and again makes it progressively easier to stretch. Instead of treating that as a nuisance, this test measures it: stretch a healthy limb ten times in a row at one fixed speed, and see how the resistance falls.</p>
+    </div>
+    <p>Healthy subjects and the surrogate can take unlimited passes. Use a fixed speed and <strong>10 consecutive passes</strong>. Measure the peak resisting torque on each pass, then fit the decay. Report the time constant, the loss between pass 1 and pass 10, and the recovery after a stated rest.</p>
+    <p>Three returns for ten minutes of work: it quantifies an effect no clinical scale captures; it justifies the short patient protocol from our own data instead of by convention; and it supplies the rest time between passes, which the protocol currently guesses.</p>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <p>If the peak torque does not fall steadily, check the speed was identical every pass and the subject stayed relaxed. A non-monotonic decay on the surrogate (which cannot soften) points at the measurement chain.</p>
+    </div>
+    <div class="pass"><b>Pass:</b> monotonic decay, fitted time constant with R² ≥ 0.9, and a stated recovery interval.</div>
+  </div>
+
+  <!-- =================== TEST 5 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 5</span><h3>Inter-DOF coupling</h3></div>
+    <p class="yields">yields <b>c<sub>12</sub></b>: decides whether treating the two axes as independent (decision D-06) survives</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Two motors on one hand plate can fight each other. If moving one axis forces the other motor to work to hold still, the axes are not independent and the single-axis maths is wrong. This test measures how much.</p>
+    </div>
+    <p>Hold axis 2 at zero. Sweep axis 1 slowly through ±45°. Record the torque axis 2 has to produce to stay put. The ratio of that sideways torque to the main torque is c<sub>12</sub>. The torque of axis 2 is read from its own torque-sensor estimate (Eq. 2.9) when that axis has one, or from the servo's load register as a stand-in. FE's spring not being sized yet does not block this test (PHYSICAL_BOM §7.5, D-23 consequence 4).</p>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <p>c<sub>12</sub> above 0.10 means one of two things: model the coupling properly (a Jacobian), or constrain the protocol so only one axis ever moves at a time. The mode-switched operation already does the second, which is the argument you make either way.</p>
+    </div>
+    <div class="pass"><b>Pass:</b> c<sub>12</sub> &lt; 0.10, so independent axes are defensible in writing with the number quoted.</div>
+  </div>
+
+  <!-- =================== TEST 6 =================== -->
+  <div class="test gate">
+    <div class="test-head"><span class="test-id">TEST 6</span><h3>Shell rigidity</h3></div>
+    <p class="yields">yields <b>K<sub>s</sub></b>: a go / no-go on the mechanical design</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>The forearm shell is the "ground" that every angle is measured against. If the shell flexes, the angle we read is not the real joint angle, and every number in the thesis is wrong. Note that this is the <em>opposite</em> of the transmission spring: springiness in the drive path <em>helps</em> (it is our torque sensor); springiness in the reaction path <em>destroys</em> our reference frame.</p>
+    </div>
+    <h4>Why the limit is 36 N·m/rad</h4>
+    <p>The shell is in series with the limb, so we measure a blend: K<sub>meas</sub> = K<sub>s</sub>K<sub>h</sub> / (K<sub>s</sub> + K<sub>h</sub>). For less than 5% error on the stiffest limb we expect (K<sub>h</sub> = 1.89), the shell must be at least 19 times stiffer than the limb:</p>
+    <div class="eq"><span class="body">K<sub>s</sub> ≥ 19·K<sub>h,max</sub> = 19 × 1.89 = <b>36 N·m/rad</b>&nbsp;&nbsp;→&nbsp;&nbsp; deflection &lt; 1.6° at 1 N·m</span><span class="tag">(4.2)</span></div>
+    <h4>Steps (about ten minutes)</h4>
+    <ol class="step-list">
+      <li>Clamp the shell the way it will be worn.</li>
+      <li>Hang a mass on a measured lever to apply 1.0 N·m (for example 1 kg on a 102 mm lever).</li>
+      <li>Read the angular deflection with a dial gauge at a known radius.</li>
+    </ol>
+    <div class="note bad">
+      <span class="lbl">If it fails</span>
+      <p>The shell must be stiffened before anything else is built on it: thicker walls, ribs, a stiffer material, or a better clamp. A failure found in November sinks everything, so <strong>do this test this week</strong>.</p>
+    </div>
+    <div class="pass"><b>Pass:</b> under 1.6° at 1 N·m. Target under 0.5°.</div>
+  </div>
+
+  <!-- =================== TEST 7 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 7</span><h3>Loop timing</h3></div>
+    <p class="yields">yields <b>T<sub>d</sub></b> and the actual achievable loop rate</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>The design assumes the control loop completes every 2 milliseconds. A PC running a normal operating system does not promise that; it can pause for a moment to do something else. This test finds out what really happens: how long each loop takes, how often it is late, and how long a full conversation with the motors takes.</p>
+    </div>
+    <p>Budget at 500 Hz is 2 ms per tick. Estimated bus time at 1 Mbps is 0.6 to 1.4 ms, which is feasible but tight, and it is only an estimate.</p>
+    <ol class="step-list">
+      <li>Log a microsecond time stamp at the start of every loop tick for 60 seconds, and plot a histogram of the gaps between ticks.</li>
+      <li>Separately time one full bus transaction: write both position commands in one packet, then read both positions back.</li>
+    </ol>
+    <div class="note warn">
+      <span class="lbl">Wording updated for D-22</span>
+      <p>Rev D described toggling a GPIO pin inside an interrupt routine and watching it on a scope. That was for the old embedded board. Since D-22 the loop is a PC script, so logged time stamps are the main method. A scope check needs a pin the PC can toggle, which depends on the (still unspecified) USB bridge.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <p>If ticks overrun 2 ms, read the servos at 250 Hz and keep the joint-encoder loop at 500 Hz. The multi-rate design in Part 6 exists for exactly this.</p>
+    </div>
+    <div class="pass"><b>Pass:</b> worst-case tick under 2 ms with no overruns over 60 seconds.</div>
+  </div>
+
+  <!-- =================== TEST 8 =================== -->
+  <div class="test">
+    <div class="test-head"><span class="test-id">TEST 8</span><h3>Servo step response</h3></div>
+    <p class="yields">yields <b>f<sub>s</sub></b>, <b>ζ<sub>s</sub></b>: replaces the assumed values in Eq. 2.11</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>Tell the motor "jump 5° now" and watch how it gets there: how fast, and whether it overshoots. That tells us the motor's own speed and smoothness, which section 2.4 had to assume.</p>
+    </div>
+    <ol class="step-list">
+      <li>Lock the joint to a known inertia (the surrogate, with no spring).</li>
+      <li>Command a 5° position step. Record the joint encoder at 500 Hz.</li>
+      <li>Fit a second-order response (the same kind of curve fit as Test 1).</li>
+      <li>Repeat at three step sizes (to check it behaves the same for small and large steps) and with two different loads.</li>
+    </ol>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <p>Outside the limits below, the motor model used in the stability analysis is wrong, and every margin must be recomputed. Different results at different step sizes mean the motor is not behaving like a simple lag.</p>
+    </div>
+    <div class="pass"><b>Pass:</b> f<sub>s</sub> in 5 to 15 Hz, ζ<sub>s</sub> in 0.5 to 1.2.</div>
+  </div>
+
+  <!-- =================== TEST 9 =================== -->
+  <div class="test gate">
+    <div class="test-head"><span class="test-id">TEST 9</span><h3>Mount / remount repeatability</h3></div>
+    <p class="yields">yields the <b>minimum detectable change (MDC)</b>: <strong>the single most publishable number in the project</strong></p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>The encoder can read 0.088°, but that is not what a clinician cares about. They care about this: take the device off, put it back on, and measure again. How much does the answer move just from re-fitting? Strap tension, where the limb sits, soft tissue settling and finger position all matter, and none of them appear on a datasheet. The size of that movement is the smallest improvement we can honestly call real.</p>
+    </div>
+    <ol class="step-list">
+      <li>Run Tests 1 and 2 on the subject.</li>
+      <li>Remove the device completely. Put it back on, including re-setting the neutral offset and the finger constraint.</li>
+      <li>Repeat, for <strong>three mounts</strong>, in the same session by the same operator.</li>
+      <li>Report the standard deviation of J<sub>h</sub>, B<sub>h</sub> and K<sub>h</sub> across mounts, and the 95% MDC.</li>
+    </ol>
+    <div class="note warn">
+      <span class="lbl">Where the pass limit comes from</span>
+      <p>In Interview 2, a physiotherapist said early-phase goals progress about <strong>1 cm of hand lift per week</strong>: <em>"if our target in the first week is about 2 centimetres, we increase it to 3 the following week, then 4."</em> At 8.5 cm (the knuckle) to 18 cm (the fingertip) from the wrist axis, 1 cm is about <strong>3 to 7°</strong> of wrist angle per week. Taking one third of that gives the requirement:</p>
+      <p style="margin-top:8px"><strong>MDC ≤ 2°, ideally ≤ 1°.</strong> That is a specification traced from what a physiotherapist actually does, not a number chosen to flatter the hardware.</p>
+    </div>
+    <div class="note bad">
+      <span class="lbl">If it goes wrong</span>
+      <p>An MDC above 2° means re-seating the device moves the answer by more than a typical weekly improvement. Look at the strap, the neutral-offset step, and the finger constraint before blaming the electronics. Report the real number anyway: a large honest MDC is still a result.</p>
+    </div>
+    <div class="pass"><b>Why this is the paper:</b> without an MDC figure, "the device measures wrist impedance" cannot be proven wrong. With it you can write <em>"the minimum detectable change in K<sub>h</sub> is X N·m/rad, against an Ashworth scale granularity of one ordinal grade."</em></div>
+    <div class="tech">
+      <span class="tech-lbl">Technical layer</span>
+      <p>A common definition is MDC<sub>95</sub> = 1.96 × √2 × SEM, where SEM is the standard error of measurement (the within-subject standard deviation across mounts). State the formula you use.</p>
+    </div>
+  </div>
+
+  <!-- =================== TEST 11 =================== -->
+  <div class="test gate">
+    <div class="test-head"><span class="test-id">TEST 11</span><h3>Goniometer concurrent validity</h3></div>
+    <p class="yields">yields Bland-Altman agreement with clinical practice</p>
+
+    <div class="plain">
+      <span class="lbl">In plain words</span>
+      <p>A goniometer is the clinician's protractor. It measures the hand relative to the forearm. Our encoder measures the device's own joint angle. These are not automatically the same number: misaligned axes, a slipping strap or moving soft tissue can make them differ. If our degrees are not the clinic's degrees, none of our range-of-motion output means anything clinically, and the Test 9 comparison collapses.</p>
+    </div>
+    <ol class="step-list">
+      <li>For each subject, measure the range of motion at the same time with the device and with a manual goniometer, across the range, with several repeats, on both axes.</li>
+      <li>Plot the difference between the two readings against their average (a <strong>Bland-Altman plot</strong>). Report the <strong>bias</strong> (the average difference) and the <strong>95% limits of agreement</strong> (bias ± 1.96 standard deviations).</li>
+    </ol>
+    <p><strong>Cost:</strong> one goniometer (under USD 10) and twenty minutes per subject. This test earns the sentence <em>"the device's angle output agrees with clinical goniometry to within ±X°"</em>. Without it, no claim of clinical interpretability can be made at all.</p>
+    <div class="note warn">
+      <span class="lbl">Open: no numeric limit is set</span>
+      <p>Rev D gives no number for "agrees well enough". Decide the acceptable limits of agreement <em>before</em> collecting data, and tie them to the Test 9 requirement (MDC ≤ 2°). <span class="open">open</span></p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ PART 5 ============ -->
+<section id="data">
+  <div class="part-head"><span class="part-num">PART 5</span><h2>Data: what to record, how, and how it gets used</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">The short version</span>
+    <p>A measurement you cannot trace back to the conditions it was taken under is not a measurement. Every recording must carry its own label (who, when, which settings, which calibration), written automatically, and every trial must be checked <em>while the subject is still in the chair</em>, because that is the only time a re-run is cheap.</p>
+  </div>
+
+  <h3>5.1 Channels</h3>
+  <p>A "channel" is one stream of numbers in the log file. All of these are saved, even ones we do not use yet, because you cannot go back and record something you did not save.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Channel</th><th>Rate</th><th>Where it comes from</th><th>What it is, and why you need it</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">t_us</td><td class="num">500 Hz</td><td>PC script clock (D-22; was the ESP32 <code>micros()</code>)</td><td>The time of each reading in microseconds. The only timestamp that matters; never trust the sample number.</td></tr>
+      <tr><td class="sym">theta_j1, theta_j2</td><td class="num">500 Hz</td><td>AS5600 ×2, I²C. <strong>Link to the PC not yet specified since D-22</strong></td><td>Joint angle for each axis. The measurement itself.</td></tr>
+      <tr><td class="sym">theta_m1, theta_m2</td><td class="num">200 Hz</td><td>Servo bus</td><td>Motor angle. Combined with joint angle to get the twist and so the torque.</td></tr>
+      <tr><td class="sym">tau_hat1, tau_hat2</td><td class="num">200 Hz</td><td>Computed, Eq. 2.9</td><td>The estimated interaction torque.</td></tr>
+      <tr><td class="sym">load1, load2</td><td class="num">200 Hz</td><td>Servo register</td><td>The motor's own report of how hard it is working. An independent second opinion on torque. Free; log it.</td></tr>
+      <tr><td class="sym">current1, current2</td><td class="num">200 Hz</td><td>Servo register</td><td>Motor current. A third witness, and an overload detector.</td></tr>
+      <tr><td class="sym">temp1, temp2</td><td class="num">10 Hz</td><td>Servo register</td><td>Motor temperature. Enforces the duty-cycle limit: stop the trial above 60 °C.</td></tr>
+      <tr><td class="sym">theta_ref1, theta_ref2</td><td class="num">500 Hz</td><td>Controller output</td><td>What we asked the motor to do, to compare with what happened.</td></tr>
+      <tr><td class="sym">Kd_level, mode</td><td class="num">500 Hz</td><td>Controller state</td><td>Which assist level and which axis (FE or RUD) was active at every sample.</td></tr>
+      <tr><td class="sym">tau_intent, conf, valid</td><td class="num">50 Hz</td><td>ML, held between updates</td><td>The ML hint, with its trust information (the contract in section 6.4). Log it even when it is unused.</td></tr>
+      <tr><td class="sym">sync</td><td class="num">500 Hz</td><td>GPIO to MP36 channel 3</td><td>The hard link between the EMG recording and this log, so the two can be lined up in time.</td></tr>
+      <tr><td class="sym">estop</td><td class="num">500 Hz</td><td>GPIO</td><td>Marks the emergency stop. The two seconds before it are the interesting part.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note bad">
+    <span class="lbl">Known gap: the EMG-to-log time link is broken</span>
+    <p>EMG is recorded separately on the BIOPAC MP36 at its own rate. The <strong>sync channel</strong> is what joins the two records. Its mechanism (a 3.3 V pulse from the ESP32 into a spare MP36 input, through a divider) was D-12, and D-22 removed the ESP32 that generated the pulse. <strong>This link is broken and not yet replaced.</strong> Until a PC-side method is chosen, do not assume the EMG and mechanical records line up; that alignment currently has to be argued by hand, trial by trial. This also matters for training the ML on real torque (section 6.4).</p>
+  </div>
+
+  <h3>5.2 File naming</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>Put the answers to "who, what, when" into the file name itself, so that six weeks later you do not need a spreadsheet to find out what a file is.</p>
+  </div>
+  <div class="eq"><span class="body">S&lt;subj&gt;_&lt;cond&gt;_&lt;test&gt;_&lt;dof&gt;_&lt;trial&gt;_&lt;YYYYMMDD-HHMM&gt;.csv</span><span class="tag">e.g. S07_healthy_T3_FE_r02_20261012-1432.csv</span></div>
+  <p>Surrogate runs use <code>SRG</code> as the subject ID and put the known configuration in the condition field: <code>SRG_J128K090_T1_FE_r01_...</code>. The ground truth sits in the file name.</p>
+
+  <h3>5.3 The metadata header: non-negotiable</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>Every data file starts with a few lines of label: subject, date, settings, and which calibration was in force. The script writes them automatically from the setup and the operator's answers, never by hand afterwards. Hand-written labels get forgotten or mistyped.</p>
+  </div>
+  <pre># subject_id, age_band, sex, affected_side, MAS_score (or n/a)
+# date_time_iso, operator_initials, ambient_temp_C
+# test_id, dof (FE|RUD), trial_number, condition
+<b># k_theta_rud_Nm_per_rad, k_theta_fe_Nm_per_rad, k_theta_calibrated_on   &lt;- from the last Test 0, per axis (D-23)</b>
+<b># pretension_setting (RUD), spring_part_id (FE), lever_arm_m, masses_used_g</b>
+# r_m_mm, r_j_mm, theta_zero_offset_deg
+# electrode_positions (SENIAM landmark + distance mm)
+# firmware_version, Ts_s, Kd_level, Md, Bd
+# sync_channel, emg_file_reference
+# notes_freetext</pre>
+  <p>The two bold lines are the ones that will save you. The RUD cable's stiffness drifts as Dyneema creeps. FE's spring is steadier but can be swapped for a re-sized one mid-project (D-23). Either way, if you cannot say which k<sub>θ</sub> a trial was processed with, on which axis, that trial is unusable, and you will not find out until analysis.</p>
+
+  <h3>5.4 Sanity gates: check at capture, not at analysis</h3>
+  <p>The script prints these at the end of every trial. A trial that fails is re-run <em>while the subject is still in the chair</em>.</p>
+  <ul>
+    <li>Fit R² ≥ 0.95 (Tests 1, 1b); R² ≥ 0.98 (Test 0)</li>
+    <li>Coherence ≥ 0.8 over 1 to 10 Hz (Test 3)</li>
+    <li>J<sub>h</sub> in [0.001, 0.006]; B<sub>h</sub> in [0.005, 0.08]; K<sub>h</sub> in [0.2, 3.0]</li>
+    <li>No gaps longer than 3 ms in the 500 Hz log</li>
+    <li>The torque estimate never exceeded 0.98 N·m, and servo temperature stayed below 60 °C throughout</li>
+    <li>EMG during "relaxed" trials stayed below the subject's own resting threshold. Otherwise they were not relaxed and the trial is void</li>
+  </ul>
+
+  <h3>5.5 Which script eats what</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Script</th><th>Takes in</th><th>Produces</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">wrist_id_freeosc.m</td><td>T1, T1b files</td><td>ω<sub>n</sub>, ζ, fit R², and J<sub>h</sub>, B<sub>h</sub> once K<sub>h</sub> or Test 1b is available</td></tr>
+      <tr><td class="sym">wrist_id_static.m</td><td>T2 files</td><td>K<sub>h</sub> (per side), θ<sub>0</sub>, hysteresis area</td></tr>
+      <tr><td class="sym">wrist_prbs.m</td><td>nothing</td><td>The jiggle sequence to command</td></tr>
+      <tr><td class="sym">wrist_id_perturb.m</td><td>T3 files</td><td>Z(jω), coherence, fitted J/B/K</td></tr>
+      <tr><td class="sym">wrist_id_spasticity.m</td><td>T4 files + passive model</td><td>b<sub>s</sub>, θ̇<sub>th</sub></td></tr>
+      <tr><td class="sym">wrist_id_demo.m</td><td>Synthetic data</td><td>Proof the pipeline recovers a known truth</td></tr>
+      <tr><td class="sym">wrist_stability.m</td><td>Identified parameters</td><td>Margins, Nyquist plot, M<sub>d</sub> and delay sweeps</td></tr>
+      <tr><td class="sym">wrist_sim.m</td><td>Identified parameters</td><td>Nonlinear time-domain check including spasticity</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ PART 6 ============ -->
+<section id="loop">
+  <div class="part-head"><span class="part-num">PART 6</span><h2>The loop, concretely</h2></div>
+
+  <div class="tldr">
+    <span class="lbl">The short version</span>
+    <p>Each tick (every 2 ms) the loop reads two angles, turns their difference into a torque, adds the ML hint, runs the pretend model one step, applies safety limits, and writes one target angle to the motors. Then it does it again.</p>
+  </div>
+
+  <h3>6.1 Inputs and outputs</h3>
+  <div class="grid2">
+    <div class="panel">
+      <h4>Inputs</h4>
+      <ul>
+        <li><strong>θ<sub>j</sub></strong>: joint angle, AS5600, 500 Hz, I²C. The link to the PC is open since D-22 dropped the ESP32 (it needs an I²C-to-USB bridge or equivalent, not yet specified).</li>
+        <li><strong>θ<sub>m</sub></strong>: motor angle, servo bus, 200 Hz.</li>
+        <li><strong>τ̂<sub>intent</sub></strong>: from ML, 50 Hz, held between updates, five fields (section 6.4).</li>
+        <li><strong>E-stop</strong>: hardware button, checked every tick.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Outputs</h4>
+      <ul>
+        <li><strong>θ<sub>ref</sub></strong>: the target angle written to the STS3215, 500 Hz, to both servos in one packet.</li>
+        <li><strong>The log</strong>: every channel in section 5.1, written directly by the PC script.</li>
+        <li><strong>The sync pulse</strong>: GPIO to the MP36. <strong>Lost with the ESP32 (D-22); not yet replaced</strong> (section 5.1).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="plain">
+    <span class="lbl">In plain words: how can a position-controlled motor give a "feel"?</span>
+    <p>The loop never asks for a torque. It asks for a <em>position</em>. The motor goes there; the spring between motor and wrist twists; the twist <em>is</em> the torque, and the torque moves the wrist. On RUD the motor pulls the cable, and the cable winding up is the torque. On FE the motor moves a rigid link, and the added spring winding up is the torque. So the loop commands the position that <em>produces</em> the torque. That is what admittance control is, and it is the sentence to say when someone asks how a position-controlled servo can create a feel.</p>
+  </div>
+
+  <h3>6.2 Three rates, one design</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>Not everything needs to update equally fast. The motion loop must be fast (500 times a second) because delays there can cause shaking. The torque reading can be slower (200 times a second) because the springiness we care about is 10 times slower still. The ML hint can be slowest (50 times a second) because muscle effort changes slowly. Between its updates, the loop simply <strong>holds the last hint</strong> (a "zero-order hold"), like a clock hand that jumps once every 20 ms and stays put in between.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Rate</th><th>What runs</th><th>What limits it</th></tr></thead>
+    <tbody>
+      <tr><td class="num">500 Hz</td><td>Pretend-model update, rate limit, clamp, writing to the servos, logging</td><td>On the old ESP32 board, almost nothing (an I²C encoder read takes about 100 µs). Since D-22 moved this onto a PC with a general-purpose operating system, 500 Hz is a <strong>target, not a given</strong>. Test 7 measures what is achievable.</td></tr>
+      <tr><td class="num">200 Hz</td><td>Reading the servos' positions and refreshing the torque estimate</td><td>Bus round-trip time (Test 7)</td></tr>
+      <tr><td class="num">50 Hz</td><td>ML hint update, held between updates</td><td>The agreed interface (section 6.4)</td></tr>
+    </tbody>
+  </table></div>
+  <p>200 Hz for the torque estimate is plenty: the target feel is at 2 Hz and the transmission rings near 20 Hz, so 200 Hz is ten times the fastest thing that matters. Writing both servos in one packet, with no reply requested, is what makes the 2 ms budget fit.</p>
+
+  <h3>6.3 The controller, in code</h3>
+  <p>This runs as a PC script now, not embedded firmware (D-22). The logic is unchanged by the move; only where it executes changed.</p>
+  <pre>float step(float tau_ext) {
+  <i>// semi-implicit Euler: update the speed first, then the position</i>
+  float acc = (tau_ext - Bd*x2 - Kd*x1) / Md;
+  x2 += acc * Ts;   x1 += x2 * Ts;
+
+  <i>// rate limit</i>
+  float dref = (x1 - prev) / Ts;
+  if (dref &gt;  rate_max) dref =  rate_max;
+  if (dref &lt; -rate_max) dref = -rate_max;
+  float ref = prev + dref * Ts;
+
+  <i>// position clamp</i>
+  if (ref &gt;  theta_lim) ref =  theta_lim;
+  if (ref &lt; -theta_lim) ref = -theta_lim;
+
+  <b>x1 = ref;   // &lt;-- THIS is the anti-windup</b>
+  prev = ref;
+  return ref;
+}</pre>
+
+  <h4>What each part does</h4>
+  <ol class="step-list">
+    <li><strong>The first two lines</strong> move the pretend object one tick forward. The push (<code>tau_ext</code>), minus the pretend damper's resistance, minus the pretend spring's pull, divided by the pretend weight, gives how fast its speed is changing (<code>acc</code>). Add that to the speed (<code>x2</code>), then add the speed to the position (<code>x1</code>). Doing the speed first, then the position, is a little more stable than the other order.</li>
+    <li><strong>Rate limit:</strong> never ask the motor to move faster than <code>rate_max</code>, whatever the pretend object does. A safety cap on speed.</li>
+    <li><strong>Position clamp:</strong> never ask for an angle beyond <code>theta_lim</code> (±45°). The software version of the mechanical stop.</li>
+    <li><strong>Anti-windup, the single most important line:</strong> overwrite the pretend object's position with the <em>clamped</em> value. Without it, the pretend object keeps drifting past the limit while the real device sits against its stop; when the push reverses, the device does nothing for a long moment while the hidden gap unwinds. With it, the pretend model can never disagree with reality. It is one line, and it is the difference between a device that feels responsive and one that feels broken.</li>
+  </ol>
+  <p>Put the 8 to 10 Hz low-pass filter on <code>tau_ext</code> before it enters <code>step()</code> (section 2.6).</p>
+
+  <h3>6.4 The contract with the ML side: what the controller needs</h3>
+  <div class="plain">
+    <span class="lbl">In plain words</span>
+    <p>The controller does not want a cleaned-up EMG waveform. It wants <strong>one number, every 20 milliseconds, saying how hard the patient is trying, in torque units</strong>, plus two pieces of "how much should I trust this". The ML developer's job is to turn muscle signals into that packet. The controller's job is to use the packet safely, whatever is inside it.</p>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Field</th><th>What it is</th><th>Units and limits</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">tau_intent</td><td>How hard the patient is trying, as a torque, with a sign for direction</td><td class="num">N·m. Same sign convention as the sensed torque, so the two add correctly. Bounded: it must not exceed the intent limit in <code>wrist_params.m</code> (currently 0.80 N·m, below the 0.98 N·m rated torque). Bound it in the model, not only by clipping afterwards.</td></tr>
+      <tr><td class="sym">conf</td><td>How sure the model is of this particular estimate</td><td class="num">0 to 1. Comes from the model itself.</td></tr>
+      <tr><td class="sym">valid</td><td>Whether the input signal was good enough to trust at all</td><td class="num">yes / no. Best set by the signal-quality gate (<code>emg_quality.m</code>: clipping, flat line, noise, mains, drift) running on the raw EMG, <em>not</em> by the model guessing about its own input.</td></tr>
+      <tr><td class="sym">field 4</td><td colspan="2"><span class="open">open</span> The handbook calls this "the five-field contract" but names only three fields. Two are undefined. Decide and write them down (a time stamp and an axis tag are natural candidates).</td></tr>
+      <tr><td class="sym">field 5</td><td colspan="2"><span class="open">open</span> As above.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note">
+    <span class="lbl">Why both conf and valid</span>
+    <p>Think of <code>valid</code> as "is the microphone working" and <code>conf</code> as "how sure am I about what I heard through it". A working microphone (<code>valid</code> yes) can still pick up something ambiguous (<code>conf</code> low). Without these two, a <code>tau_intent</code> of zero could mean "the patient is relaxed" or "the system has no idea". Those must not look the same.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Open decision: what does the controller do when valid is "no"?</span>
+    <p>Not yet written down. A safe default to adopt: treat the hint as zero and run on the sensed torque alone, which is exactly the behaviour with no ML at all, and Part 1 step 6 shows that is safe. Whatever is chosen, log it. <span class="open">open</span></p>
+  </div>
+
+  <h4>Notes for whoever builds the ML side</h4>
+  <ul>
+    <li><strong>A cleaned EMG waveform is not yet <code>tau_intent</code>.</strong> It is still a signal over time, in volts. It must be turned into a single torque number: rectify, smooth into an envelope, scale against the patient's maximum effort, subtract the opposing muscle, apply a small deadband, apply a gain, clip. The classical baseline (<code>emg_baseline.m</code>) does exactly this; a model that outputs the torque directly must reproduce the same outcome.</li>
+    <li><strong>Rate:</strong> one packet every 20 ms. The classifier's feature window (200 ms with a 50 ms step) is a different consumer with different needs; do not reuse it for this output.</li>
+    <li><strong>Training target:</strong> do not train the ML to copy the baseline's output and then claim it "beats" the baseline; the comparison becomes circular (D-21). Early smoke tests against the baseline or synthetic data are fine. The honest target is real measured torque, which needs the EMG-to-log sync link (section 5.1) to be restored.</li>
+    <li><strong>Safety:</strong> because the hint is feedforward and outside the stability loop, a wrong hint degrades the assist but cannot destabilise it. That is not permission to be careless: a wild hint still moves a person's arm, up to the limits below.</li>
+  </ul>
+
+  <h3>6.5 The safety stack in one place</h3>
+  <p>These are the limits that stand between a software mistake and a person's wrist, in the order a command meets them:</p>
+  <ol class="step-list">
+    <li>The ML hint is bounded to the intent limit and can be ignored when <code>valid</code> is "no" (6.4).</li>
+    <li>The 8 to 10 Hz low-pass smooths sudden jumps (2.6).</li>
+    <li>The pretend model with M<sub>d</sub> ≥ 3J<sub>h</sub> keeps the loop stable (2.2).</li>
+    <li>The rate limit caps how fast the target can move (6.3).</li>
+    <li>The position clamp stops the target at ±45° (6.3).</li>
+    <li>Anti-windup keeps the model honest after any clamp (6.3).</li>
+    <li>The sanity gates stop a trial if the torque estimate exceeds 0.98 N·m or the servo passes 60 °C (5.4).</li>
+    <li>The hardware E-stop, checked every tick, overrides everything.</li>
+  </ol>
+</section>
+
+<!-- ============ PART 7 ============ -->
+<section id="strategy">
+  <div class="part-head"><span class="part-num">PART 7</span><h2>Where we stand, honestly</h2></div>
+
+  <div class="note warn">
+    <span class="lbl">Read this first</span>
+    <p>Section 7.1 to 7.5 are carried over from Rev D (20 Sep 2026) and rewritten for readability. The <strong>dates and plan status have not been updated</strong> for Rev E. Check them against reality before quoting them.</p>
+  </div>
+
+  <h3>7.1 Where you actually stand</h3>
+  <p>Stronger than it feels. The control design is finished and defensible; the identification scripts are written and checked against synthetic truth; the decision and failure logs exist; and the architecture question that could have sunk the review has a one-sentence answer from a datasheet. What is missing is <strong>hardware in hand and numbers on paper</strong>. That is a procurement and assembly problem, not an engineering one.</p>
+  <p>You are also carrying more in your head than you need to. That is what this document is for. Nobody expects you to recite Part 2; they expect you to know where the answer lives and why it is the answer.</p>
+
+  <div class="grid2">
+    <div class="panel good">
+      <h4>Real strengths</h4>
+      <ul>
+        <li>The measurement goal can be proved wrong by data, needs no patients, and does not depend on the ML working.</li>
+        <li>Testing on the surrogate first gives error bars on your own method, which almost no undergraduate project has.</li>
+        <li>The choice of admittance control was forced by the hardware, so it cannot be argued with.</li>
+        <li>Free torque sensing through the transmission: a real design insight, properly cited. Free on RUD (the cable), deliberate on FE (the added spring, D-23).</li>
+        <li>One decision (one axis at a time) solves two independent constraints.</li>
+        <li>The decision log and failure log make the work continuable by the next team and honest to a reader.</li>
+        <li>Two field interviews with a practising physiotherapist: primary evidence that changed the design in seven places rather than merely confirming it.</li>
+        <li>A specification traced from clinical practice (MDC ≤ 2°), not from an encoder datasheet.</li>
+        <li>Two protocol defects were caught before any subject was tested (F-06 and F-07), one of which would have produced a systematic bias indistinguishable from the effect being measured.</li>
+      </ul>
+    </div>
+    <div class="panel weak">
+      <h4>Real weaknesses: say them before a reviewer does</h4>
+      <ul>
+        <li>The number of subjects will be small and mostly healthy. Patient data may be zero.</li>
+        <li>Two EMG channels limit what can be claimed about classification.</li>
+        <li>The autoencoder idea is no longer novel: Anastasiev 2025, Mohammadiazni 2026 and Wang 2026 got there first (F-05).</li>
+        <li>Torque is <em>estimated</em>, not measured with a traceable sensor. Quantified, but indirect.</li>
+        <li>The 12-bit servo encoder is a resolution floor that cannot be improved.</li>
+        <li>Dyneema creep causes session-to-session drift, managed by protocol rather than removed.</li>
+        <li>No clinical validation. None is possible in nine weeks, and claiming otherwise is the fastest way to lose the viva.</li>
+        <li><strong>MyoPro exists.</strong> It is a commercially sold, FDA-listed EMG-driven elbow-wrist-hand orthosis. EMG-driven upper-limb orthotics is not novel and we do not claim it (D-20).</li>
+        <li>The physiotherapist's own view: <em>"EMG is not very necessary for wrist evaluations."</em> That is correct for assessment, which is why EMG earns its place only in the assist path, and why the ML is a challenger and not a foundation (D-21).</li>
+        <li>±45° hard stops cannot deliver terminal-range stretching (normal range is about 80° flexion and 70° extension). Adjustable stops were requested; if refused, it is a stated scope limit.</li>
+      </ul>
+    </div>
+    <div class="panel threat">
+      <h4>What could actually kill it</h4>
+      <ul>
+        <li><strong>Mechanical assembly slipping.</strong> Risk number one by a wide margin. Everything downstream waits on it.</li>
+        <li><strong>Procurement.</strong> Standard post to Sri Lanka is 3 to 6 weeks. Buy locally at 2 to 3 times the price and treat the markup as insurance.</li>
+        <li><strong>Test 6 failing.</strong> A shell under 36 N·m/rad invalidates every measurement. Find out early, not in November.</li>
+        <li><strong>Team coupling.</strong> If the ML side does not build to the contract in 6.4, integration becomes a negotiation instead of a wiring job.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>7.2 What to claim, and what never to</h3>
+  <div class="note">
+    <span class="lbl">Claim this</span>
+    <p>A forearm-grounded, two-axis wrist platform that measures joint mechanical impedance with <em>stated uncertainty</em>, checked against calibrated mechanical standards, and that renders a commanded target feel with <em>measured</em> stability margins across a defined range of impairment.</p>
+  </div>
+  <div class="note bad">
+    <span class="lbl">Never claim this</span>
+    <p>Clinical effectiveness. Improved recovery. Readiness for patient use. Novelty of the autoencoder approach. Any number you have not personally measured on this hardware. Each of these is a question you cannot answer, handed to a panel for free.</p>
+  </div>
+
+  <h3>7.3 The fallback ladder: decide the trigger now, not in November</h3>
+  <p>The most useful thing for your own peace of mind is to decide in advance what you will do if the mechanism is late. Write it into the plan so the decision is already made when you are tired and short of time.</p>
+  <div class="ladder">
+    <div class="rung">
+      <div class="tier">PLAN A</div>
+      <div>
+        <h4>Mechanism working by 2 October</h4>
+        <p>The full programme: a measurement study on 8 to 10 healthy subjects on both axes, the assist mode shown with measured stability margins, ML integration through the replay harness. This is the thesis you designed.</p>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="tier">PLAN B</div>
+      <div>
+        <h4>Mechanism slips to mid-October</h4>
+        <p>A full measurement study on the surrogate, plus a single axis on human subjects. The assist mode shown qualitatively rather than quantified across the range. Still a complete, honest thesis: the measurement chapter carries it.</p>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="tier">PLAN C</div>
+      <div>
+        <h4>Mechanism does not arrive</h4>
+        <p>One servo, one encoder, the surrogate rig: a single-axis bench instrument. Complete validation of the identification method against calibrated standards. This is <em>still a thesis</em>, and still publishable as a methods paper. The contribution is the measurement technique and its uncertainty, which was always the strongest part.</p>
+      </div>
+    </div>
+  </div>
+  <p><strong>The trigger:</strong> if the mechanism is not producing motion under servo command by <strong>16 October</strong>, drop to Plan B without debating it. That date leaves four weeks for data collection and four for writing, the minimum either task survives on.</p>
+
+  <h3>7.4 Nine weeks (the Rev D plan)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Week</th><th>Dates</th><th>Work</th><th>Gate</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td class="num">1</td><td class="num">19 to 25 Sep</td><td>Place the local order. Test 6 (shell). Bench demo: servo commanded and read back at 500 Hz.</td><td>Progress review, 24 Sep</td></tr>
+      <tr><td class="num">2</td><td class="num">26 Sep to 2 Oct</td><td>Mount encoders. Build the surrogate. Test 0 (k<sub>θ</sub>), Tests 7 and 8.</td><td><b>Gate 1</b>: torque estimate validated</td></tr>
+      <tr><td class="num">3 to 4</td><td class="num">3 to 16 Oct</td><td>Tests 1 to 4 on the surrogate, then healthy subjects. Test 5.</td><td><b>16 Oct</b>: Plan B decision point</td></tr>
+      <tr><td class="num">5 to 6</td><td class="num">17 to 30 Oct</td><td>Close the admittance loop on hardware. Measure margins across the range.</td><td>Stability results</td></tr>
+      <tr><td class="num">7</td><td class="num">31 Oct to 6 Nov</td><td>ML integration via the replay harness. Mode switching demonstrated.</td><td>Integration</td></tr>
+      <tr><td class="num">8</td><td class="num">7 to 13 Nov</td><td>Full-system demo runs. Video. Contingency buffer.</td><td>Demo frozen</td></tr>
+      <tr><td class="num">9 to 10</td><td class="num">14 to 27 Nov</td><td>Thesis writing and defence preparation.</td><td>Submission</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>7.5 For any progress review</h3>
+  <p>Rev D wrote this for the 24 September review; the shape is still right for any review. You do not need a fully assembled exoskeleton. You need four things, and you can have all of them:</p>
+  <ol>
+    <li>A servo commanded and read back at 500 Hz on the bench, with a plot.</li>
+    <li>The surrogate-first strategy, and why it makes your measurement claim testable.</li>
+    <li>The shell rigidity number from Test 6, pass or fail, with the derivation in Eq. 4.2.</li>
+    <li>The numbers table in Part 3, and the fallback ladder in 7.3.</li>
+  </ol>
+  <p>The criticism last time was "no clear plan or path". A team that walks in able to say <em>here is every number we need, here is how we get each one, here is what we have rejected and why, and here is the date on which we would change plan</em> is not a team without a path. That is the whole point of this document, and it is the honest position, not a performance.</p>
+</section>
+
+<footer>
+  MC 4206 · Team MC 04 · Control &amp; Electronics · T. A. S. Tharaka · Revision E, 8 Oct 2026<br>
+  Companion documents: PHYSICAL_BOM.md (Rev B) · DECISION_LOG.md · FAILURE_LOG.md · THESIS_STRUCTURE.md
+</footer>
+
+</div>
+</body>
+</html>
+
