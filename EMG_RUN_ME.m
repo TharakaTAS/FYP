@@ -1,6 +1,6 @@
-%EMG_RUN_ME  The rebuilt EMG pipeline, end to end, on synthetic data.
+%EMG_RUN_ME  EMG pipeline, end to end, on synthetic data.
 %
-%   Usage:  cd to D:\Tharaka\FYP\emg, then type
+%   Usage:  cd to C:\filepath, then type 
 %
 %       EMG_RUN_ME
 %
